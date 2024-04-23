@@ -318,6 +318,13 @@ export default function TopNavi({ children }) {
                                             {__("My Subscribers")}
                                         </Dropdown.Link>
                                     )}
+                                    {auth.user.is_streamer === "yes" && (
+                                        <Dropdown.Link
+                                            href={route("getStreamingList")}
+                                        >
+                                            {__("Add Streaming")}
+                                        </Dropdown.Link>
+                                    )}
 
                                     <Dropdown.Link
                                         href={route("profile.followings")}

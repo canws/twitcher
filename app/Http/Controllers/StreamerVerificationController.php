@@ -7,25 +7,25 @@ use App\Notifications\StreamerVerification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
+use App\Models\StreamingPrice;
+use App\Models\StreamingTime;
+use Auth;
 
 class StreamerVerificationController extends Controller
 {
     // auth
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware('auth');
     }
 
     // form
-    public function verifyForm()
-    {
+    public function verifyForm(){
         Gate::authorize('channel-settings');
         return Inertia::render('Channel/StreamerVerification');
     }
 
     // pending message
-    public function pendingVerification()
-    {
+    public function pendingVerification(){
         Gate::authorize('channel-settings');
         return Inertia::render('Channel/VerificationPending');
     }
@@ -51,5 +51,70 @@ class StreamerVerificationController extends Controller
         $request->user()->update(['streamer_verification_sent' => true]);
 
         return to_route('streamer.pendingVerification');
+    }
+
+    public function getStreamingList(Request $request)
+    {
+        $user =  Auth::user();
+         $streamerData = StreamingPrice::where('streamer_id',$user->id)->with('getStreamerPrice')->get();
+        return Inertia::render('Sreaming/addStreaming', compact('streamerData'));
+    }
+      // process
+    public function addStreaming(Request $request){
+        $request->validate([
+            'token_amount' => 'required|numeric',
+            'streaming_time' => 'required|date_format:H:i', // H:i format represents hours and minutes (24-hour format)
+        ]);
+        $user =  Auth::user();
+        $data = [
+            'streamer_id' => $user->id ?? '',
+            'streaming_time' => $request->streaming_time ?? '',
+        ];
+       $StreamingTimeData = StreamingTime::create($data);
+        $data = [
+            'streamer_id' => $user->id ?? '',
+            'token_amount' => $request->token_amount ?? '',
+            'streamer_time_id' => $StreamingTimeData->id ?? '',
+        ];
+        StreamingPrice::create($data);
+        $request->session()->flash('message', __("Streaming add successfully !"));
+        return back();
+    }
+
+    public function editStreaming($id){
+          $streamerData = StreamingPrice::where('id',$id)->with('getStreamerPrice')->first();
+        return Inertia::render('Sreaming/EditStreamer', compact('streamerData'));
+    }
+
+    public function updateStreaming(Request $request)
+    {
+      
+
+        $request->validate([
+            'token_amount' => 'required|numeric',
+            'streaming_time' => 'required|date_format:H:i', // H:i format represents hours and minutes (24-hour format)
+        ]);
+
+       $dataDetails =   StreamingPrice::find($request->streamering_id);
+
+        $data = [
+            'streaming_time' => $request->streaming_time ?? '',
+        ];
+
+       $StreamingTimeData = StreamingTime::where('id',$dataDetails->streamer_time_id)->update($data);
+        $data = [
+            'token_amount' => $request->token_amount ?? '',
+        ];
+        $StreamingTimeData = StreamingPrice::where('id',$request->streamering_id)->update($data);
+
+        return to_route('getStreamingList')->with('message', __('Streaming succesfully updated'));
+    }
+    public function deleteStreaming(Request $request ){
+        $dataDetails =   StreamingPrice::find($request->id);
+        if($dataDetails){
+           StreamingTime::where('id',$dataDetails->streamer_time_id)->delete();
+           StreamingPrice::where('id',$request->id)->delete();
+        }
+        return back()->with('message', __('Streaming succesfully deleted'));
     }
 }

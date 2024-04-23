@@ -126,6 +126,17 @@ export default function AccountNavi({ active }) {
                         {__("My Subscribers")}
                     </Link>
                 )}
+                {auth.user.is_streamer === "yes" && (
+                    <Link
+                        className={`block font-bold ${active == "add-streaming"
+                            ? "text-indigo-900"
+                            : "text-indigo-600"
+                            } hover:text-indigo-800 py-2 dark:text-white dark:hover:text-indigo-300  dark:border-zinc-800 border-b border-indigo-100 my-2 px-5`}
+                        href={route("getStreamingList")}
+                    >
+                        {__("Add Streaming")}
+                    </Link>
+                )}
                 <Link
                     className={`block font-bold ${active == "following"
                         ? "text-indigo-900"
@@ -164,6 +175,7 @@ export default function AccountNavi({ active }) {
                 >
                     {__("My Account")}
                 </Link>
+                
             </div>
         </div>
     );

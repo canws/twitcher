@@ -63,6 +63,11 @@ Route::get('/channel/lif-user-ban/{roomban}', [ChannelController::class, 'liftUs
 Route::get('/streamer/verify', [StreamerVerificationController::class, 'verifyForm'])->name('streamer.verify');
 Route::get('/streamer/pending-verification', [StreamerVerificationController::class, 'pendingVerification'])->name('streamer.pendingVerification');
 Route::post('/streamer/submit-verification', [StreamerVerificationController::class, 'submitVerification'])->name('streamer.submitVerification');
+Route::post('/streamer/add-streaming', [StreamerVerificationController::class, 'addStreaming'])->name('addStreaming');
+Route::get('/streamer/get-streming-time', [StreamerVerificationController::class, 'getStreamingList'])->name('getStreamingList');
+Route::get('/streamer/edit-streaming/{id}', [StreamerVerificationController::class, 'editStreaming'])->name('streaming.edit');
+Route::post('/streamer/update-streaming', [StreamerVerificationController::class, 'updateStreaming'])->name('streaming.update');
+Route::post('/streamer/delete-streaming', [StreamerVerificationController::class, 'deleteStreaming'])->name('streaming.delete');
 
 // Tips
 Route::post('tip/send', [TipsController::class, 'sendTip'])->name('tips.send');
@@ -118,7 +123,7 @@ Route::get('/my-subscribers', [SubscriptionController::class, 'mySubscribers'])-
 Route::get('/my-subscriptions', [SubscriptionController::class, 'mySubscriptions'])->name('mySubscriptions');
 Route::get('/subscribe/channel/{channel}/tier/{tier}', [SubscriptionController::class, 'selectGateway'])->name('subscribe');
 Route::get('/subscribe/confirm-subscription/channel/{user}/tier/{tier}', [SubscriptionController::class, 'confirmSubscription'])->name('confirm-subscription');
-
+      
 // Videos
 Route::get('/browse-videos/{videocategory?}{slug?}', [VideosController::class, 'browse'])->name('videos.browse');
 Route::get('/video/{video}-{slug}', [VideosController::class, 'videoPage'])->name('video.page');

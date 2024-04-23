@@ -6,6 +6,7 @@ use App\Events\ChatMessageEvent;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Chat;
+use Redirect;
 
 class ChatController extends Controller
 {
@@ -32,6 +33,10 @@ class ChatController extends Controller
 
         $roomName = 'room-' . $user->username;
 
+        $tokens = $user->tokens ?? '';
+        if(empty($tokens) || $tokens < 0){
+            return Redirect::route('token.packages')->with('message', __('By Token Packages .'));
+        }
         $chat = Chat::create([
             'roomName' => $roomName,
             'user_id' => $request->user()->id,

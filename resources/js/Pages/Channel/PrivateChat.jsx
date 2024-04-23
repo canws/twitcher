@@ -14,6 +14,7 @@ export default function PrivateChat({ streamer }) {
     const [message, setMessage] = useState("");
     const [tip, setTip] = useState("");
 
+    
     const sendPrivateChat = (e) => {
         e.preventDefault();
        
@@ -42,7 +43,6 @@ export default function PrivateChat({ streamer }) {
                 });
             });
     };
-
     return (
         <>
             <Modal show={show} onClose={(e) => setShow(false)} maxWidth="xs">
