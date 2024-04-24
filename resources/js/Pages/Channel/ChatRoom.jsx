@@ -46,11 +46,9 @@ export default function ChatRoom({ streamer, forceScroll = false }) {
         if (streamer.id === userId) {
             return;
         }
-
         // reset ban user id and confirm
         setConfirmBanUserId(null);
         setUserInfo(null);
-
         setIsUserInfoModalOpen(!isUserInfoModalOpen);
 
         axios.post(route("profile.modalUserInfo", { user: userId }))
