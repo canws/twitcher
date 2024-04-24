@@ -101,7 +101,7 @@ export default function EditStreamer({ streamerData }) {
                         
                         <div className="flex justify-between items-center">
                             <PrimaryButton processing={processing}>
-                                {__("Update Tier")}
+                                {__("Update")}
                             </PrimaryButton>
                         </div>
                     </form>

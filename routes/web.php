@@ -65,6 +65,7 @@ Route::get('/streamer/pending-verification', [StreamerVerificationController::cl
 Route::post('/streamer/submit-verification', [StreamerVerificationController::class, 'submitVerification'])->name('streamer.submitVerification');
 Route::post('/streamer/add-streaming', [StreamerVerificationController::class, 'addStreaming'])->name('addStreaming');
 Route::get('/streamer/get-streming-time', [StreamerVerificationController::class, 'getStreamingList'])->name('getStreamingList');
+Route::get('/streamer/get-streming-list/{id}', [StreamerVerificationController::class, 'getStreamingListApi'])->name('get-streamer-list');
 Route::get('/streamer/edit-streaming/{id}', [StreamerVerificationController::class, 'editStreaming'])->name('streaming.edit');
 Route::post('/streamer/update-streaming', [StreamerVerificationController::class, 'updateStreaming'])->name('streaming.update');
 Route::post('/streamer/delete-streaming', [StreamerVerificationController::class, 'deleteStreaming'])->name('streaming.delete');

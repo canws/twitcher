@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 use Overtrue\LaravelFollow\Traits\Follower;
 use Overtrue\LaravelFollow\Traits\Followable;
+use app\Models\getUsersInfo;
 
 class User extends Authenticatable
 {
@@ -162,6 +163,9 @@ class User extends Authenticatable
         return $this->hasMany(TokenSale::class);
     }
 
+    public function privateList(){
+        return $this->belongsTo(PrivateStream :: class , 'user_id' , 'id');
+    }
     public static function boot()
     {
         parent::boot();

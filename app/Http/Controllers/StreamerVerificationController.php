@@ -57,7 +57,7 @@ class StreamerVerificationController extends Controller
     {
         $user =  Auth::user();
          $streamerData = StreamingPrice::where('streamer_id',$user->id)->with('getStreamerPrice')->get();
-        return Inertia::render('Sreaming/addStreaming', compact('streamerData'));
+        return Inertia::render('Streaming/addStreaming', compact('streamerData'));
     }
       // process
     public function addStreaming(Request $request){
@@ -83,13 +83,11 @@ class StreamerVerificationController extends Controller
 
     public function editStreaming($id){
           $streamerData = StreamingPrice::where('id',$id)->with('getStreamerPrice')->first();
-        return Inertia::render('Sreaming/EditStreamer', compact('streamerData'));
+        return Inertia::render('Streaming/EditStreamer', compact('streamerData'));
     }
 
     public function updateStreaming(Request $request)
     {
-      
-
         $request->validate([
             'token_amount' => 'required|numeric',
             'streaming_time' => 'required|date_format:H:i', // H:i format represents hours and minutes (24-hour format)
@@ -117,4 +115,18 @@ class StreamerVerificationController extends Controller
         }
         return back()->with('message', __('Streaming succesfully deleted'));
     }
+
+
+    // ============================== Api ===============================================
+    
+    public function getStreamingListApi($id){
+        $user = Auth::user();
+        $streamerData = StreamingPrice::where('streamer_id', $id)->with('getStreamerPrice')->get();
+        return response()->json([
+            'streamerData' => $streamerData,
+            'status'       => true,
+        ], 200);
+    }
+
+    
 }

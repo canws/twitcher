@@ -8,30 +8,30 @@ import Textarea from "@/Components/Textarea";
 import NumberInput from "@/Components/NumberInput";
 import axios from "axios";
 import { toast } from "react-toastify";
+import TextInput from "@/Components/TextInput";
+
 
 export default function PrivateChat({ streamer }) {
     const [show, setShow] = useState(false);
     const [message, setMessage] = useState("");
-    const [tip, setTip] = useState("");
+    const [streamingId, setStreamingId ]= useState("");
+    const [stream , setStream] = useState([]);
 
-    
     const sendPrivateChat = (e) => {
         e.preventDefault();
        
         axios
             .post(route("chat.privateRequest"), {
-                streamer: streamer.id,
-                tip,
+                streamingId,
                 message,
             })
             .then((resp) => {
-                if (resp.data.result == "ok") {
-                    setTip("");
+                if (resp.data.status === true) {
                     setMessage("");
-                    toast.success(__("Thanks, your tip has been sent!"));
+                    toast.success(resp.data.message);
                     setShow(false);
                 } else {
-                    toast.error(resp.data.result);
+                    toast.error(resp.data.message);
                 }
             })
             .catch((Error) => {
@@ -43,6 +43,23 @@ export default function PrivateChat({ streamer }) {
                 });
             });
     };
+
+    const fetchStreamingData = async () => {
+        try {
+          const response = await axios.get('/streamer/get-streming-list/'+streamer.id);
+          const streamingData = response.data.streamerData;
+            if(response.data.status === true){
+                setStream(streamingData);
+                setShow(true);
+            }
+        } catch (error) {
+          toast.error('Error fetching streaming data:', error);
+        }
+      };
+      const handleRadioChange = (e) => {
+        setStreamingId(parseInt(e.target.value));
+      };
+   
     return (
         <>
             <Modal show={show} onClose={(e) => setShow(false)} maxWidth="xs">
@@ -51,22 +68,40 @@ export default function PrivateChat({ streamer }) {
                         <MdGeneratingTokens className="mr-2 h-6 w-6" />
                         {__("Send Private Chat Request !")}
                     </h3>
+                    <div className="my-3">
+                        <table className="table-fixed">
+                            <thead>
+                            <tr>
+                                <th>Select</th>
+                                <th> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Time &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th>Tokens</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {stream.map((item, index) => (
+                                <tr key={index}>
+                                <td>
+                                    <input type="radio" name="select-stream" value={item?.id} onChange={handleRadioChange} />
+                                </td>
+                                <td>{item?.get_streamer_price?.streaming_time}</td> 
+                                <td>{item?.token_amount}</td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </div>
 
                     <form onSubmit={sendPrivateChat}>
-                        <InputLabel
-                            className="text-base"
-                            forInput="tokens"
-                            value={__("Tokens Amount")}
+                        
+                    <TextInput
+                        type="hidden"
+                        name="tokens"
+                        min={1}
+                        className="w-full mt-2 h-0 overflow-hidden"
+                        value={streamingId}
+                        handleChange={(e) => setStreamingId(e.target.value)}
                         />
 
-                        <NumberInput
-                            type="number"
-                            name="tokens"
-                            min={1}
-                            className="w-full mt-2"
-                            value={tip}
-                            handleChange={(e) => setTip(e.target.value)}
-                        />
 
                         <InputLabel
                             className="text-base mt-4"
@@ -87,9 +122,9 @@ export default function PrivateChat({ streamer }) {
                     </form>
                 </div>
             </Modal>
-
+            
             <PrimaryButton
-                onClick={(e) => setShow(true)}
+                onClick={(e) => fetchStreamingData()}
                 className="py-3 mx-2 inline-flex items-center"
             >
                  {__("Private")}

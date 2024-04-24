@@ -65,7 +65,7 @@ export default function addStreaming({ auth, streamerData }) {
 
     return (
         <AuthenticatedLayout auth={auth}>
-            <Head title={__("Add Sreaming")} />
+            <Head title={__("Add Streaming")} />
 
             <div className="lg:flex lg:space-x-10">
                 <AccountNavi active={"tiers"} />
@@ -74,7 +74,7 @@ export default function addStreaming({ auth, streamerData }) {
                     <header>
                         <h2 className="text-lg inline-flex items-center md:text-xl font-medium text-gray-600 dark:text-gray-100">
                             <FaGrinStars className="mr-2" />
-                            {__("Add Sreaming")}
+                            {__("Add Streaming")}
                         </h2>
 
                         <p className="mt-1 mb-2 text-sm text-gray-600 dark:text-gray-400">

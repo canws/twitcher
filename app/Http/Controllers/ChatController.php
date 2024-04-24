@@ -6,20 +6,20 @@ use App\Events\ChatMessageEvent;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Chat;
+use App\Models\StreamingPrice;
+use App\Models\StreamingTime;
+use App\Models\PrivateStream;
+use Auth;
 use Redirect;
+use Exception;
 
 class ChatController extends Controller
 {
     // latest messages
     public function latestMessages(String $roomName)
     {
-        $messages = Chat::where('roomName', $roomName)
-                        ->latest()
-                        ->take(50)
-                        ->get();
-
-        return $messages->reverse()
-                        ->flatten();
+        $messages = Chat::where('roomName', $roomName)->latest()->take(50)->get();
+        return $messages->reverse()->flatten();
     }
 
     // send message
@@ -29,6 +29,7 @@ class ChatController extends Controller
             return abort(403, __("You must be logged in to chat!"));
         }
 
+        
         $request->validate(['message' => 'required']);
 
         $roomName = 'room-' . $user->username;
@@ -50,57 +51,122 @@ class ChatController extends Controller
         return response()->json(['result' => $chat->id]);
     }
 
-    public function sendPrivateRequest(Request $request)
-    {
-        return  $request;
-        $request->validate([
-            'streamer' => 'required|exists:users,id',
-            'message' => 'required',
-            'tip' => 'required|numeric|min:1',
-        ]);
+    public function sendPrivateRequest(Request $request){
+        try {
+            // Check if streaming ID is provided
+            if (empty($request->streamingId)) {
+                return response()->json(['status' => false, 'message' => __("Please select time and tokens!")]);
+            }
 
-        // don't tip yourself
-        if ($request->user()->id == $request->streamer) {
-            return response()->json(['result' => __("Do not tip yourself!")]);
-        }
+            $user = Auth::user();
 
-        // validate balance is enough
-        if ($request->tip > $request->user()->tokens) {
-            return response()->json([
-                'result' =>__("Your balance of :tokens tokens is not enough for a tip of :tip", [
-                    'tokens' => $request->user()->tokens,
-                    'tip' => $request->tip
-                ])
+            // Retrieve streaming data
+            $streamingData = StreamingPrice::where('id', $request->streamingId)->with('getStreamerPrice')->first();
+
+            // Don't allow tipping yourself
+            if ($user->id === $streamingData->streamer_id) {
+                return response()->json(['status' => false, 'message' => __("Do not send private chat to yourself!")]);
+            }
+
+            // Validate if user's balance is enough
+            if ($streamingData->token_amount > $user->tokens) {
+                return response()->json(['status' => false, 'message' => __("Your balance is not enough for sending a private chat!")]);
+            }
+
+            // Create private stream
+            $privateStream = PrivateStream::create([
+                'streamer_id' => $streamingData->streamer_id,
+                'user_id' => $user->id,
+                'tokens' => $streamingData->token_amount,
+                'stream_time' => $streamingData->getStreamerPrice->streaming_time ?? '',
+                'message' => $request->message ?? '',
             ]);
+            $streamer = User::find($streamingData->streamer_id);
+            $userToken = $user->tokens - $streamingData->token_amount;
+            $StreamerToken =$streamer->tokens + $streamingData->token_amount;
+            User::where('id',$user->id)->update(['tokens' =>$userToken]);
+            User::where('id' ,$streamingData->streamer_id)->update(['tokens' => $StreamerToken]);
+            return response()->json(['status' => true, 'message' => __("Private request sent successfully!")]);
+        } catch (Exception $e) {
+            // Handle exceptions
+            return response()->json(['status' => false, 'message' => __("An error occurred. Please try again later.")]);
         }
-
-        // get streamer
-        $streamer = User::findOrFail($request->streamer);
-
-        // record tip
-        $tip = new Tips();
-        $tip->user_id = $request->user()->id;
-        $tip->streamer_id = $streamer->id;
-        $tip->tokens = $request->tip;
-        $tip->save();
-
-        // subtract tipper balance
-        $request->user()->decrement('tokens', $request->tip);
-
-        // increment streamer balance
-        $streamer->increment('tokens', $request->tip);
-
-        // broadcast message
-        $message = new Chat();
-        $message->roomName = 'room-' . $streamer->username;
-        $message->streamer_id = $streamer->id;
-        $message->user_id = $request->user()->id;
-        $message->tip = $request->tip;
-        $message->message = $request->message;
-        $message->save();
-
-        broadcast(new ChatMessageEvent($message));
-
-        return response()->json(['result' => 'ok']);
     }
+
+    public function getPrivateRequest(Request $request){
+        try {
+            $user = Auth::user();
+             $privateStrem = PrivateStream::where('streamer_id',$user->id)->with('getUsersInfo')->get();
+            return response()->json(['status' => true, 'data'=> $privateStrem]);
+        } catch (Exception $e) {
+            return response()->json(['status' => false, 'message' => __("An error occurred. Please try again later.")]);
+        }
+    }
+    public function cancelStreaming($id){
+        try{
+           $streamerData =  PrivateStream::findOrFail($id);
+           $result = $this->TokensStatusUpadet($streamerData);
+           if ($result) {
+                $streamerData->delete();
+               return response()->json(['status' => true, 'message' => __("Cancel request sent successfully!")]);
+           } else {
+            return response()->json(['status' => false, 'message' => __("try again !")]);
+           }
+            
+        } catch (Exception $e) {
+            // Handle exceptions
+            return response()->json(['status' => false, 'message' => __("An error occurred. Please try again later.")]);
+        }
+    }
+    public function acceptStreaming($id){
+        try{
+           $streamerData =  PrivateStream::findOrFail($id);
+           if($streamerData){
+            PrivateStream::where('id',$id)->update(['status' => 'accept']);
+            return response()->json(['status' => true, 'message' => __("Accept request sent successfully!")]);
+           }
+           
+        } catch (Exception $e) {
+            // Handle exceptions
+            return response()->json(['status' => false, 'message' => __("An error occurred. Please try again later.")]);
+        }
+    }
+    public function TokensStatusUpadet($streamerData) {
+        try {
+            $streamer = User::findOrFail($streamerData->streamer_id);
+            $users = User::findOrFail($streamerData->user_id);
+
+            $userToken = $users->tokens + $streamerData->tokens;
+            $streamerToken = $streamer->tokens - $streamerData->tokens;
+
+            User::where('id', $users->id)->update(['tokens' => $userToken]);
+            User::where('id', $streamerData->streamer_id)->update(['tokens' => $streamerToken]);
+
+            return true; // Indicate success
+        } catch (Exception $e) {
+            // Log the error or handle it as needed
+            \Log::error('Error updating tokens status: ' . $e->getMessage());
+            return false; // Indicate failure
+        }
+    }
+
+  
+    public function privateChatStart(Request $request){
+        try{
+            $streamerData =  PrivateStream::findOrFail($request->streamingId);
+           if($streamerData->status === 'accept'){
+                // PrivateStream::where('id',$id)->update(['status' => 'accept']);
+
+                return response()->json(['status' => true, 'message' => __("Accept request sent successfully!")]);
+           }else{
+                return response()->json(['status' => false, 'message' => __("Please Accept request !")]);
+           }
+           
+        } catch (Exception $e) {
+            // Handle exceptions
+            return response()->json(['status' => false, 'message' => __("An error occurred. Please try again later.")]);
+        }
+    }
+
+    
 }

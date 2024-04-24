@@ -13,11 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('streaming_prices', function (Blueprint $table) {
+        Schema::create('private_streams', function (Blueprint $table) {
             $table->id();
             $table->integer('streamer_id')->nullable();
-            $table->decimal('token_amount', 8, 2)->nullable();
-            $table->integer('streamer_time_id')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->decimal('tokens', 8, 2)->nullable();
+            $table->string('stream_time')->nullable();
+            $table->text('message')->nullable();
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('streaming_prices');
+        Schema::dropIfExists('private_streams');
     }
 };

@@ -1,14 +1,61 @@
-/.phpunit.cache
-/node_modules
-# /public/build
-# /public/hot
-# /public/storage
-
+# Ignore the vendor directory, as it contains all the Composer dependencies
 /vendor
+
+# Ignore the node_modules directory, as it contains all the npm dependencies
+/node_modules
+
+# Ignore the .env file, as it contains sensitive information like database credentials
 .env
-.env.backup
-.env.production
-.phpunit.result.cache
-auth.json
+
+# Ignore the storage directory, as it contains cache, session, and file storage
+/storage/*
+
+# Ignore the public/storage directory, as it is symlinked to storage/app/public
+/public/storage
+
+# Ignore the Homestead/Homestead.yaml and Homestead.yaml files
+Homestead.yaml
+Homestead.json
+
+# Ignore the Mix-manifest.json file
+mix-manifest.json
+
+# Ignore the composer.lock file
+composer.lock
+
+# Ignore the npm-debug.log file
 npm-debug.log
-yarn-error.log
+
+# Ignore IDE-specific files and directories
+/.idea
+/.vscode
+/.phpstorm.meta.php
+
+# Ignore the .DS_Store file created by macOS
+.DS_Store
+
+# Ignore the test coverage directory
+/coverage
+
+# Ignore the phpunit.xml and phpunit.xml.dist files
+/phpunit.xml
+/phpunit.xml.dist
+
+# Ignore the .phpunit.result.cache file
+/.phpunit.result.cache
+
+# Ignore the local environment file
+.env.local
+.env.*.local
+
+# Ignore the .env.backup file
+.env.backup
+
+# Ignore the Tinker history file
+_tinker
+
+# Ignore the laravel-echo-server.json file
+laravel-echo-server.json
+
+# Ignore the env.d directory
+/env.d

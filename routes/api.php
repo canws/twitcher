@@ -41,6 +41,10 @@ Route::post('streaming/validate-key', [LiveKitController::class, 'validateKey'])
 Route::get('chat/latest-messages/{roomName}', [ChatController::class, 'latestMessages'])->name('chat.latestMessages');
 Route::post('chat/send-message/{user}', [ChatController::class, 'sendMessage'])->name('chat.sendMessage');
 Route::post('chat/send-private-request', [ChatController::class, 'sendPrivateRequest'])->name('chat.privateRequest');
+Route::post('chat/start-private-chat', [ChatController::class, 'privateChatStart'])->name('chat.start');
+Route::get('chat/get-private-request', [ChatController::class, 'getPrivateRequest'])->name('chat.getPrivateRequest');
+Route::get('chat/cancel-streaming/{id}', [ChatController::class, 'cancelStreaming'])->name('chat.requestCacel');
+Route::get('chat/accept-streaming/{id}', [ChatController::class, 'acceptStreaming'])->name('chat.requestAccept');
 
 // schedule
 Route::get('schedule/for-channel/{user}', [ScheduleController::class, 'getSchedule'])->name('schedule.get');

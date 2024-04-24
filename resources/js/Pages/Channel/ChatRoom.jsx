@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import TipPopup from "./Partials/TipPopup";
 import PrivateChat from "./PrivateChat";
+import PrivateChatList from "./PrivateChatList";
 import { usePage } from "@inertiajs/inertia-react";
 import SecondaryButton from "@/Components/SecondaryButton";
 import { Inertia } from "@inertiajs/inertia";
@@ -140,6 +141,9 @@ export default function ChatRoom({ streamer, forceScroll = false }) {
         scrollTheChat();
     };
 
+    const getTotaldata = () => {
+        alert("okkk");
+    }
     return (
         <div className="flex flex-col w-full lg:w-[400px] h-[270px] sm:h-[360px] lg:h-[536px] bg-white dark:bg-zinc-900 dark:border-zinc-900 ">
 
@@ -311,8 +315,13 @@ export default function ChatRoom({ streamer, forceScroll = false }) {
                     <TipPopup streamer={streamer} />
                 </div>
                 <div>
-                    <PrivateChat streamer={streamer}/>
+                    {auth?.user?.is_streamer === 'no' ?
+                    <PrivateChat streamer={streamer}/>:
+                    <PrivateChatList streamer={streamer}/>
+                     }
+                    
                 </div>
+                
             </div>
         </div>
     );
