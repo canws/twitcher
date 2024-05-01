@@ -8483,7 +8483,7 @@ function requireXhr() {
             }
             var request2 = new XMLHttpRequest();
             if (config2.auth) {
-                var username = config2.auth.username || "";
+                var username = config2?.auth?.username || "";
                 var password = config2.auth.password
                     ? unescape(encodeURIComponent(config2.auth.password))
                     : "";
@@ -36095,11 +36095,11 @@ var jquery = { exports: {} };
                             var i,
                                 xhr2 = options.xhr();
                             xhr2.open(
-                                options.type,
-                                options.url,
-                                options.async,
-                                options.username,
-                                options.password
+                                options?.type,
+                                options?.url,
+                                options?.async,
+                                options?.username,
+                                options?.password
                             );
                             if (options.xhrFields) {
                                 for (i in options.xhrFields) {

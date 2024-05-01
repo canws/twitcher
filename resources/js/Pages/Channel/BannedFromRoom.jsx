@@ -12,7 +12,7 @@ export default function Subscribe({ streamUser }) {
                 <Head
                     title={__("Banned from :channelName's channel (:handle)", {
                         channelName: streamUser.name,
-                        handle: `@${streamUser.username}`,
+                        handle: `@${streamUser?.username}`,
                     })}
                 />
 
@@ -23,7 +23,7 @@ export default function Subscribe({ streamUser }) {
                         <h2 className="text-2xl text-center font-semibold text-gray-900 dark:text-gray-100">
                             {__("You have been banned from :handle's live", {
                                 channelName: streamUser.name,
-                                handle: `@${streamUser.username}`,
+                                handle: `@${streamUser?.username}`,
                             })}
                         </h2>
                     </div>

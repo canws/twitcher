@@ -22,7 +22,7 @@ export default function ChannelsLoop({ channels }) {
                             </div>
                         )}
                         <Link
-                            href={route("channel", { user: channel.username })}
+                            href={route("channel", { user: channel?.username })}
                         >
                             <img
                                 src={channel.cover_picture}
@@ -33,7 +33,7 @@ export default function ChannelsLoop({ channels }) {
                         <div className="-mt-8 ml-2.5 absolute">
                             <Link
                                 href={route("channel", {
-                                    user: channel.username,
+                                    user: channel?.username,
                                 })}
                             >
                                 <img
@@ -50,7 +50,7 @@ export default function ChannelsLoop({ channels }) {
                                 <Link
                                     className="text-indigo-600 hover:text-indigo-400 dark:text-indigo-500 dark:hover:text-indigo-600 font-black mt-1 text-lg"
                                     href={route("channel", {
-                                        user: channel.username,
+                                        user: channel?.username,
                                     })}
                                 >
                                     {channel.name}
@@ -60,10 +60,10 @@ export default function ChannelsLoop({ channels }) {
                                 <Link
                                     className="ml-2 text-indigo-600 hover:text-indigo-400 dark:text-indigo-500 dark:hover:text-indigo-600 font-light text-base"
                                     href={route("channel", {
-                                        user: channel.username,
+                                        user: channel?.username,
                                     })}
                                 >
-                                    @{channel.username}
+                                    @{channel?.username}
                                 </Link>
                             </div>
                         </div>

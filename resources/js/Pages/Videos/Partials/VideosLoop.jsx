@@ -54,7 +54,7 @@ export default function VideosLoop({ videos }) {
                             <div className="w-10 flex-shrink-0 mr-2">
                                 <Link
                                     href={route("channel", {
-                                        user: v.streamer.username,
+                                        user: v?.streamer?.username,
                                     })}
                                 >
                                     <img
@@ -81,10 +81,10 @@ export default function VideosLoop({ videos }) {
                                     <div>
                                         <Link
                                             href={route("channel", {
-                                                user: v.streamer.username,
+                                                user: v?.streamer?.username,
                                             })}
                                         >
-                                            @{v.streamer.username}
+                                            @{v?.streamer?.username}
                                         </Link>
 
                                         <Tooltip anchorSelect="a" />

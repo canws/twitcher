@@ -71,7 +71,7 @@ export default function Edit({ notifications }) {
                                 </div>
                                 <div>
                                     <span className="text-sky-500">
-                                        @{n.data.username}
+                                        @{n?.data?.username}
                                     </span>
 
                                     <br />
@@ -106,7 +106,7 @@ export default function Edit({ notifications }) {
                                     href={`${
                                         n.data.isStreamer === "yes"
                                             ? route("channel", {
-                                                  user: n.data.username,
+                                                  user: n?.data?.username,
                                               })
                                             : ""
                                     }`}
@@ -123,13 +123,13 @@ export default function Edit({ notifications }) {
                                     href={`${
                                         n.data.isStreamer === "yes"
                                             ? route("channel", {
-                                                  user: n.data.username,
+                                                  user: n?.data?.username,
                                               })
                                             : ""
                                     }`}
                                     className="text-sky-500"
                                 >
-                                    @{n.data.username}
+                                    @{n?.data?.username}
                                 </Link>
                                 <br />
                                 <span className="text-gray-600 dark:text-gray-100">
@@ -167,7 +167,7 @@ export default function Edit({ notifications }) {
                             <div className="flex-shrink-0">
                                 <Link
                                     href={route("channel", {
-                                        user: n.data.username,
+                                        user: n?.data?.username,
                                     })}
                                 >
                                     <img
@@ -180,11 +180,11 @@ export default function Edit({ notifications }) {
                             <div>
                                 <Link
                                     href={route("channel", {
-                                        user: n.data.username,
+                                        user: n?.data?.username,
                                     })}
                                     className="text-sky-500"
                                 >
-                                    @{n.data.username}
+                                    @{n?.data?.username}
                                 </Link>{" "}
                                 <span className="text-gray-700 dark:text-gray-100">
                                     {__("just thanked for your subscription")},
@@ -221,7 +221,7 @@ export default function Edit({ notifications }) {
                                     href={`${
                                         n.data.is_streamer === "yes"
                                             ? route("channel", {
-                                                  user: n.data.username,
+                                                  user: n?.data?.username,
                                               })
                                             : ""
                                     }`}
@@ -238,13 +238,13 @@ export default function Edit({ notifications }) {
                                     href={`${
                                         n.data.is_streamer === "yes"
                                             ? route("channel", {
-                                                  user: n.data.username,
+                                                  user: n?.data?.username,
                                               })
                                             : ""
                                     }`}
                                     className="text-sky-500"
                                 >
-                                    @{n.data.username}
+                                    @{n?.data?.username}
                                 </Link>
                                 <br />
                                 <span className="text-gray-600 dark:text-gray-100">

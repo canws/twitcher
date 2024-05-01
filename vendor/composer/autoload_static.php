@@ -817,6 +817,7 @@ class ComposerStaticInit8004bc802f8f8ef7ebe9ac5dbe773b83
         'App\\Models\\Chat' => __DIR__ . '/../..' . '/app/Models/Chat.php',
         'App\\Models\\Options' => __DIR__ . '/../..' . '/app/Models/Options.php',
         'App\\Models\\Page' => __DIR__ . '/../..' . '/app/Models/Page.php',
+        'App\\Models\\PrivateChat' => __DIR__ . '/../..' . '/app/Models/PrivateChat.php',
         'App\\Models\\PrivateStream' => __DIR__ . '/../..' . '/app/Models/PrivateStream.php',
         'App\\Models\\RoomBans' => __DIR__ . '/../..' . '/app/Models/RoomBans.php',
         'App\\Models\\StreamingPrice' => __DIR__ . '/../..' . '/app/Models/StreamingPrice.php',

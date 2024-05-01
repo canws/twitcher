@@ -103,7 +103,7 @@ export default function Register() {
 
                             <TextInput
                                 name="username"
-                                value={data.username}
+                                value={data?.username}
                                 className="mt-1 block w-full"
                                 autoComplete="username"
                                 handleChange={onHandleChange}
@@ -112,7 +112,7 @@ export default function Register() {
                             />
 
                             <InputError
-                                message={errors.username}
+                                message={errors?.username}
                                 className="mt-2"
                             />
                         </div>

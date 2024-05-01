@@ -48,7 +48,7 @@ export default function Subscribe({ video }) {
                             <div>
                                 <Link
                                     href={route("channel", {
-                                        user: video.streamer.username,
+                                        user: video?.streamer?.username,
                                     })}
                                 >
                                     <img
@@ -61,7 +61,7 @@ export default function Subscribe({ video }) {
                             <div>
                                 <Link
                                     href={route("channel", {
-                                        user: video.streamer.username,
+                                        user: video?.streamer?.username,
                                     })}
                                 >
                                     <h2 className="text-center text-2xl font-medium text-gray-800 dark:text-gray-100">

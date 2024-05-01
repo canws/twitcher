@@ -72,10 +72,10 @@ export default function ProfileTabs({ streamUser, activeTab, setActiveTab }) {
                     </button>
                 </div>
                 <div>
-                    {auth.user?.username === streamUser.username && (
+                    {auth?.user?.username === streamUser?.username && (
                         <Link
                             href={route("channel.livestream", {
-                                user: streamUser.username,
+                                user: streamUser?.username,
                             })}
                             className="inline-flex items-center text-pink-600 hover:text-pink-500 dark:text-pink-500 dark:hover:text-pink-600 text-lg font-bold"
                         >
@@ -83,11 +83,11 @@ export default function ProfileTabs({ streamUser, activeTab, setActiveTab }) {
                             {__("Start Streaming")}
                         </Link>
                     )}
-                    {auth.user?.username !== streamUser.username &&
+                    {auth.user?.username !== streamUser?.username &&
                         streamUser.live_status === "online" && (
                             <Link
                                 href={route("channel.livestream", {
-                                    user: streamUser.username,
+                                    user: streamUser?.username,
                                 })}
                                 className="inline-flex items-center text-pink-600 hover:text-pink-500 text-lg font-bold"
                             >

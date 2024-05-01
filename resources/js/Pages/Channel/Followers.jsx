@@ -22,7 +22,7 @@ export default function Followers({ followers }) {
                 <div className="w-full">
                     <Link
                         href={route("channel.followers", {
-                            user: auth.user.username,
+                            user: auth?.user?.username,
                         })}
                         className={activeTabClass}
                     >
@@ -76,7 +76,7 @@ export default function Followers({ followers }) {
                                             href={`${
                                                 user.is_streamer === "yes"
                                                     ? route("channel", {
-                                                          user: user.username,
+                                                          user: user?.username,
                                                       })
                                                     : ""
                                             }`}
@@ -94,7 +94,7 @@ export default function Followers({ followers }) {
                                             href={`${
                                                 user.is_streamer === "yes"
                                                     ? route("channel", {
-                                                          user: user.username,
+                                                          user: user?.username,
                                                       })
                                                     : ""
                                             }`}
@@ -106,12 +106,12 @@ export default function Followers({ followers }) {
                                             href={`${
                                                 user.is_streamer === "yes"
                                                     ? route("channel", {
-                                                          user: user.username,
+                                                          user: user?.username,
                                                       })
                                                     : ""
                                             }`}
                                         >
-                                            @{user.username}
+                                            @{user?.username}
                                         </Link>
                                     </div>
                                 </div>

@@ -112,7 +112,7 @@ export default function TopNavi({ children }) {
                                 <div>
                                     <Link
                                         href={route("channel", {
-                                            user: sr.username,
+                                            user: sr?.username,
                                         })}
                                     >
                                         <img
@@ -126,7 +126,7 @@ export default function TopNavi({ children }) {
                                     <Link
                                         className="block text-gray-600 dark:text-gray-300 font-semibold mt-1 ml-1"
                                         href={route("channel", {
-                                            user: sr.username,
+                                            user: sr?.username,
                                         })}
                                     >
                                         {sr.name}
@@ -134,10 +134,10 @@ export default function TopNavi({ children }) {
                                     <Link
                                         className="block text-sky-500 hover:text-sky-600 font-semibold mt-1 ml-1"
                                         href={route("channel", {
-                                            user: sr.username,
+                                            user: sr?.username,
                                         })}
                                     >
-                                        @{sr.username}
+                                        @{sr?.username}
                                     </Link>
                                 </div>
                             </div>
@@ -243,7 +243,7 @@ export default function TopNavi({ children }) {
                                     {auth.user.is_streamer === "yes" && (
                                         <Dropdown.Link
                                             href={route("channel", {
-                                                user: auth.user.username,
+                                                user: auth?.user?.username,
                                             })}
                                         >
                                             {__("My Channel")}
@@ -304,7 +304,7 @@ export default function TopNavi({ children }) {
                                     {auth.user.is_streamer === "yes" && (
                                         <Dropdown.Link
                                             href={route("channel.followers", {
-                                                user: auth.user.username,
+                                                user: auth?.user?.username,
                                             })}
                                         >
                                             {__("My Followers")}

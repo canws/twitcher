@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\ChatMessageEvent;
+use App\Events\PrivateChatMessageEvent;
 use App\Events\LiveStreamStarted;
 use App\Events\LiveStreamStopped;
 use App\Http\Controllers\Admin;

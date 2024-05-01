@@ -30,7 +30,7 @@ export default function MySubscribers({ subs }) {
                         <>
                             <Link
                                 href={route("mySubscribers", {
-                                    user: auth.user.username,
+                                    user: auth?.user?.username,
                                 })}
                                 className={activeTabClass}
                             >
@@ -91,7 +91,7 @@ export default function MySubscribers({ subs }) {
                                                 "yes"
                                                     ? route("channel", {
                                                           user: user.subscriber
-                                                              .username,
+                                                              ?.username,
                                                       })
                                                     : ""
                                             }`}
@@ -114,7 +114,7 @@ export default function MySubscribers({ subs }) {
                                                 "yes"
                                                     ? route("channel", {
                                                           user: user.subscriber
-                                                              .username,
+                                                              ?.username,
                                                       })
                                                     : ""
                                             }`}
@@ -128,12 +128,12 @@ export default function MySubscribers({ subs }) {
                                                 "yes"
                                                     ? route("channel", {
                                                           user: user.subscriber
-                                                              .username,
+                                                              ?.username,
                                                       })
                                                     : ""
                                             }`}
                                         >
-                                            @{user.subscriber.username}
+                                            @{user?.subscriber?.username}
                                         </Link>
                                         <span className="mt-1 inline-flex items-center space-x-2 rounded px-1.5 py-0.5 bg-gray-500 text-gray-100 text-xs">
                                             <GoCalendar className="dark:text-white mr-1" />

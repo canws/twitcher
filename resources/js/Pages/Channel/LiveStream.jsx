@@ -60,13 +60,13 @@ export default function LiveStream({ isChannelOwner, streamUser, roomName }) {
     );
 
     // listen for live streaming events
-    window.Echo.channel(`room-${streamUser.username}`)
+    window.Echo.channel(`room-${streamUser?.username}`)
       .listen(".livestream.started", (data) => {
         setIsRoomOffline(false);
       })
       .listen(".livestream.ban", (data) => {
         window.location.href = route("channel.bannedFromRoom", {
-          user: streamUser.username,
+          user: streamUser?.username,
         });
       })
       .listen(".livestream.stopped", (data) => {
@@ -78,7 +78,7 @@ export default function LiveStream({ isChannelOwner, streamUser, roomName }) {
     <Front
       extraHeader={true}
       extraHeaderTitle={__("@:username's Live Stream", {
-        username: streamUser.username,
+        username: streamUser?.username,
       })}
       extraHeaderImage="/images/live-stream-icon.png"
       extraImageHeight="h-10"
@@ -88,11 +88,11 @@ export default function LiveStream({ isChannelOwner, streamUser, roomName }) {
           {isRoomOffline ? (
             <StreamInstructions
               streamKey={roomName}
-              streamUser={streamUser.username}
+              streamUser={streamUser?.username}
             />
           ) : (
             <>
-              {streamUser.username === auth?.user?.username && (
+              {streamUser?.username === auth?.user?.username && (
                 <div
                   className={`${
                     showMessage ? "flex" : "hidden"

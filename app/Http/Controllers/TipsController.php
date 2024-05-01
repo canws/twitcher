@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\ChatMessageEvent;
+use App\Events\PrivateChatMessageEvent;
 use App\Models\Chat;
 use App\Models\Tips;
 use App\Models\User;
@@ -66,6 +67,7 @@ class TipsController extends Controller
         $message->save();
 
         broadcast(new ChatMessageEvent($message));
+        // broadcast(new PrivateChatMessageEvent($message));
 
         return response()->json(['result' => 'ok']);
     }

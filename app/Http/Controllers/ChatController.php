@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\ChatMessageEvent;
+use App\Events\PrivateChatMessageEvent;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Chat;
@@ -18,7 +19,7 @@ class ChatController extends Controller
     // latest messages
     public function latestMessages(String $roomName)
     {
-        $messages = Chat::where('roomName', $roomName)->latest()->take(50)->get();
+        $messages = Chat::where(['roomName'=> $roomName , 'chat_type' => 'public'])->latest()->take(50)->get();
         return $messages->reverse()->flatten();
     }
 
@@ -28,22 +29,20 @@ class ChatController extends Controller
         if (!auth()->check()) {
             return abort(403, __("You must be logged in to chat!"));
         }
-
-        
         $request->validate(['message' => 'required']);
-
         $roomName = 'room-' . $user->username;
-
         $tokens = $user->tokens ?? '';
         if(empty($tokens) || $tokens < 0){
             return Redirect::route('token.packages')->with('message', __('By Token Packages .'));
         }
         $chat = Chat::create([
-            'roomName' => $roomName,
+            'roomName' => $request->roomName ?? $roomName,
+            'chat_type' => $request->chatType ?? 'public',
             'user_id' => $request->user()->id,
             'streamer_id' => $user->id,
             'message' => $request->message
         ]);
+
 
 
         broadcast(new ChatMessageEvent($chat));
@@ -96,12 +95,17 @@ class ChatController extends Controller
     public function getPrivateRequest(Request $request){
         try {
             $user = Auth::user();
-             $privateStrem = PrivateStream::where('streamer_id',$user->id)->with('getUsersInfo')->get();
-            return response()->json(['status' => true, 'data'=> $privateStrem]);
+            $privateStream = PrivateStream::where('streamer_id', $user->id)
+                                        ->where('status', '!=', 'conform') // Assuming 'conform' is a status value
+                                        ->with('getUsersInfo')
+                                        ->get();
+    
+            return response()->json(['status' => true, 'data'=> $privateStream]);
         } catch (Exception $e) {
             return response()->json(['status' => false, 'message' => __("An error occurred. Please try again later.")]);
         }
     }
+    
     public function cancelStreaming($id){
         try{
            $streamerData =  PrivateStream::findOrFail($id);
@@ -153,20 +157,77 @@ class ChatController extends Controller
   
     public function privateChatStart(Request $request){
         try{
-            $streamerData =  PrivateStream::findOrFail($request->streamingId);
-           if($streamerData->status === 'accept'){
-                // PrivateStream::where('id',$id)->update(['status' => 'accept']);
+            $privateStream = PrivateStream::findOrFail($request->streamingId);
 
-                return response()->json(['status' => true, 'message' => __("Accept request sent successfully!")]);
-           }else{
+            if ($privateStream->status === 'accept') {
+                $user = Auth::user();
+                $chatType = 'private-' . time() . '_' . $user->username;
+
+                $chat = Chat::create([
+                    'roomName' => $roomName = 'room-' . $user->username,
+                    'chat_type' => $chatType,
+                    'user_id' => $privateStream->user_id,
+                    'streamer_id' => $privateStream->streamer_id,
+                    'message' => 'start streaming'
+                ]);
+                
+                // broadcast(new ChatMessageEvent($chat));
+                event(new PrivateChatMessageEvent($chat ,$privateStream));
+
+                $messages = Chat::where('chat_type', $chatType)->latest()->take(50)->get();
+                $chatMessage = $messages->reverse()->flatten();
+
+                return response()->json([
+                    'status' => true,
+                    'streamerData' => $privateStream,
+                    'chatType' => $chatType,
+                    'chatMessage' => $chatMessage,
+                    'message' => __("Accept request sent successfully!")
+                ]);
+            } else {
                 return response()->json(['status' => false, 'message' => __("Please Accept request !")]);
-           }
+            }
            
         } catch (Exception $e) {
             // Handle exceptions
             return response()->json(['status' => false, 'message' => __("An error occurred. Please try again later.")]);
         }
-    }
+    } 
 
-    
+    public function finishedStreamingChat(Request $request){
+        try{
+          $privateStream = PrivateStream::findOrFail($request->streamId);
+            if ($privateStream->status === 'accept') {
+                $user = Auth::user();
+                $chatType = 'public';
+
+                $chat = Chat::create([
+                    'roomName' => $roomName = 'room-' . $user->username,
+                    'chat_type' => $chatType,
+                    'user_id' => $privateStream->user_id,
+                    'streamer_id' => $privateStream->streamer_id,
+                    'message' => 'finished streaming'
+                ]);
+                PrivateStream::where('id',$privateStream->id)->update(['status' => 'conform']);
+                event(new PrivateChatMessageEvent($chat ,$privateStream));
+                $messages = Chat::where('chat_type', $chatType)->latest()->take(50)->get();
+                $chatMessage = $messages->reverse()->flatten();
+
+                return response()->json([
+                    'status' => true,
+                    'streamerData' => $privateStream,
+                    'chatType' => $chatType,
+                    'chatMessage' => $chatMessage,
+                    'message' => __("Finished streaming successfully!")
+                ]);
+            } else {
+                return response()->json(['status' => false, 'message' => __("Please Accept request !")]);
+            }
+           
+        } catch (Exception $e) {
+            // Handle exceptions
+            return response()->json(['status' => false, 'message' => __("An error occurred. Please try again later.")]);
+        }
+    } 
+
 }

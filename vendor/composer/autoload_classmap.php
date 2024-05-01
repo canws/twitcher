@@ -154,6 +154,7 @@ return array(
     'App\\Models\\Chat' => $baseDir . '/app/Models/Chat.php',
     'App\\Models\\Options' => $baseDir . '/app/Models/Options.php',
     'App\\Models\\Page' => $baseDir . '/app/Models/Page.php',
+    'App\\Models\\PrivateChat' => $baseDir . '/app/Models/PrivateChat.php',
     'App\\Models\\PrivateStream' => $baseDir . '/app/Models/PrivateStream.php',
     'App\\Models\\RoomBans' => $baseDir . '/app/Models/RoomBans.php',
     'App\\Models\\StreamingPrice' => $baseDir . '/app/Models/StreamingPrice.php',

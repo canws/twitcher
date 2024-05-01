@@ -22,11 +22,11 @@ const VideoComponent = ({ video, inModal }) => {
                 <div className="mr-5 flex flex-col items-center flex-shrink-0">
                     <Link
                         href={route("channel", {
-                            user: video.streamer.username,
+                            user: video?.streamer?.username,
                         })}
                     >
                         <img
-                            src={video.streamer.profile_picture}
+                            src={video?.streamer?.profile_picture}
                             className="w-14 h-14 rounded-full"
                         />
                     </Link>
@@ -39,11 +39,11 @@ const VideoComponent = ({ video, inModal }) => {
                     <div className="flex items-center flex-wrap md:space-x-2 mt-1">
                         <Link
                             href={route("channel", {
-                                user: video.streamer.username,
+                                user: video?.streamer?.username,
                             })}
                             className="text-sm text-gray-600 mr-2  dark:text-white"
                         >
-                            @{video.streamer.username}
+                            @{video?.streamer?.username}
                         </Link>
 
                         <Link

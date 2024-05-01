@@ -61,7 +61,7 @@ export default function BannedUsers({ roomBans }) {
                                         <Link
                                             href={`${ban.user.is_streamer === "yes"
                                                 ? route("channel", {
-                                                    user: ban.user.username,
+                                                    user: ban?.user?.username,
                                                 })
                                                 : ""
                                                 }`}
@@ -78,7 +78,7 @@ export default function BannedUsers({ roomBans }) {
                                             className="block text-gray-600 dark:text-gray-300 text-lg font-semibold mt-1"
                                             href={`${ban.user.is_streamer === "yes"
                                                 ? route("channel", {
-                                                    user: ban.user.username,
+                                                    user: ban?.user?.username,
                                                 })
                                                 : ""
                                                 }`}
@@ -89,12 +89,12 @@ export default function BannedUsers({ roomBans }) {
                                             className="block text-sky-500 hover:text-sky-700 font-semibold text-sm"
                                             href={`${ban.user.is_streamer === "yes"
                                                 ? route("channel", {
-                                                    user: ban.user.username,
+                                                    user: ban?.user?.username,
                                                 })
                                                 : ""
                                                 }`}
                                         >
-                                            @{ban.user.username}
+                                            @{ban?.user?.username}
                                         </Link>
 
                                         <p className="text-sm text-gray-600 dark:text-gray-400">

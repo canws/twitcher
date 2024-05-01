@@ -8,12 +8,12 @@ import { toast } from "react-toastify";
 import TextInput from "@/Components/TextInput";
 
 
-export default function PrivateChatList({ streamer }) {
+export default function PrivateChatList({ streamer ,sendDataToParent  }) {
     const [show, setShow] = useState(false);
     const [message, setMessage] = useState("");
     const [streamingId, setStreamingId ]= useState("");
     const [stream , setStream] = useState([]);
-
+    const [privateChat , setPrivateChat] = useState([]);
     const sendPrivateChat = (e) => {
         e.preventDefault();
        
@@ -23,6 +23,8 @@ export default function PrivateChatList({ streamer }) {
             })
             .then((resp) => {
                 if (resp.data.status === true) {
+                    setPrivateChat(resp.data.chatMessage);
+                    sendDataToParent(resp.data);
                     toast.success(resp.data.message);
                     setShow(false);
                 } else {

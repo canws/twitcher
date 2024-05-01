@@ -68,7 +68,7 @@ export default function LeftSidebar() {
                                     <div className="w-14 h-14 flex-shrink-0">
                                         <Link
                                             href={route("channel", {
-                                                user: channel.username,
+                                                user: channel?.username,
                                             })}
                                         >
                                             <img
@@ -81,11 +81,11 @@ export default function LeftSidebar() {
                                     <div className="flex-grow">
                                         <Link
                                             href={route("channel", {
-                                                user: channel.username,
+                                                user: channel?.username,
                                             })}
                                             className="flex truncate text-gray-900 font-bold dark:text-white"
                                         >
-                                            {channel.username}
+                                            {channel?.username}
                                         </Link>
                                         <Link
                                             href={route("channels.browse", {
