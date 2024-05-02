@@ -13,6 +13,7 @@ use App\Models\User;
 use Inertia\Inertia;
 use Carbon\Carbon;
 use Image;
+use Auth;
 
 class ChannelController extends Controller
 {
@@ -37,18 +38,14 @@ class ChannelController extends Controller
     // live stream
     public function liveStream($user, Request $r)
     {
-
-       
+       $userInfo = Auth::user();
         // get the stream user
-         $streamUser = User::whereUsername($user)
+          $streamUser = User::whereUsername($user)
             ->withCount(['followers', 'subscribers', 'videos'])
             ->firstOrFail();
-            $tokens = $streamUser->tokens ?? '';
-            if(empty($tokens) || $tokens < 0){
-                return Redirect::route('token.packages')->with('message', __('By Token Packages .'));
-            }
+           
             // Retrieve the user's date of birth from $streamUser object
-            $dob = $streamUser->dob ?? '';
+              $dob = $userInfo->dob ?? '';
             if(empty($dob)){
                 return Redirect::route('profile.edit')->with('message', __('User must be 18 years old or older.'));
             }
@@ -57,11 +54,15 @@ class ChannelController extends Controller
                 // Handle invalid date format error
                 return Redirect::back()->with('message', __('Invalid date of birth format.'));
             }
-            $age = Carbon::parse($dob)->age;
+               $age = Carbon::parse($dob)->age;
             if ($age < 18) {
                 return Redirect::route('profile.edit')->with('message', __('User must be 18 years old or older.'));
             }
-            $streamUser->increment('popularity');
+            $tokens = $userInfo->tokens ?? '';
+            if(empty($tokens) || $tokens < 0){
+                return Redirect::route('token.packages')->with('message', __('By Token Packages .'));
+            }
+               $streamUser->increment('popularity');
         // check this user (if authenticated) is banned form this room
         if (auth()->check()) {
             $isBanned = $r->user()->bannedFromRooms()->where('streamer_id', $streamUser->id)->exists();

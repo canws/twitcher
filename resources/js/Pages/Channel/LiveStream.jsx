@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Front from "@/Layouts/Front";
 import __ from "@/Functions/Translate";
 import { useState, useEffect, useRef } from "react";
@@ -7,13 +7,16 @@ import ChatRoom from "./ChatRoom";
 import VideoJS from "./Partials/VideoJs";
 import StreamInstructions from "./StreamInstructions";
 import { usePage } from "@inertiajs/inertia-react";
+import { Inertia } from "@inertiajs/inertia";
+import PrivateLiveSream from "@/Components/PrivateLiveSream";
 
 export default function LiveStream({ isChannelOwner, streamUser, roomName }) {
   const [isRoomOffline, setIsRoomOffline] = useState(
     streamUser.live_status === "online" ? false : true
   );
-
-  const [showMessage, setShowMessage] = useState(true);
+  // const [showMessage, setShowMessage] = useState(true);
+  const [liveType , setLiveType] = useState('public');
+  const [userId , setUserId] = useState('');
 
   const { auth } = usePage().props;
 
@@ -64,6 +67,16 @@ export default function LiveStream({ isChannelOwner, streamUser, roomName }) {
       .listen(".livestream.started", (data) => {
         setIsRoomOffline(false);
       })
+      .listen(".private.livestream.started", (data) => {
+        if(auth.user.id === data?.chat?.user_id || auth.user.id === data?.chat?.streamer_id){
+          setLiveType(data?.chat?.chat_type);
+          setUserId(data?.chat?.user_id);
+          setIsRoomOffline(false);
+        }else{
+          setLiveType('public');
+          setIsRoomOffline(true);
+        }
+      })
       .listen(".livestream.ban", (data) => {
         window.location.href = route("channel.bannedFromRoom", {
           user: streamUser?.username,
@@ -78,7 +91,7 @@ export default function LiveStream({ isChannelOwner, streamUser, roomName }) {
     <Front
       extraHeader={true}
       extraHeaderTitle={__("@:username's Live Stream", {
-        username: streamUser?.username,
+        username: streamUser.username,
       })}
       extraHeaderImage="/images/live-stream-icon.png"
       extraImageHeight="h-10"
@@ -88,28 +101,25 @@ export default function LiveStream({ isChannelOwner, streamUser, roomName }) {
           {isRoomOffline ? (
             <StreamInstructions
               streamKey={roomName}
-              streamUser={streamUser?.username}
+              streamUser={streamUser.username}
             />
           ) : (
             <>
-              {streamUser?.username === auth?.user?.username && (
-                <div
-                  className={`${
-                    showMessage ? "flex" : "hidden"
-                  } mb-3 mt-5 lg:mt-0 p-3 bg-white dark:bg-zinc-800 dark:text-white text-indigo-700 font-medium`}
-                >
-                  {__(
-                    "If you just started streaming in OBS, refresh this page after 30 seconds to see your stream."
-                  )}
-                  <button
-                    className="ml-2 border-b border-indigo-700 dark:border-white"
-                    onClick={(e) => setShowMessage(false)}
-                  >
-                    {__("Close message")}
-                  </button>
-                </div>
+            
+              {streamUser.username === auth?.user?.username && (
+                <PrivateLiveSream/>
               )}
-              <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />
+            {liveType === 'public' ?
+              (<VideoJS options={videoJsOptions} onReady={handlePlayerReady} />)
+              :
+              (<>
+                    {streamUser.username === auth?.user?.username || auth?.user?.id === userId ? 
+                      (<VideoJS options={videoJsOptions} onReady={handlePlayerReady} />)
+                      :
+                      (<><h1>This Sreaming is private !</h1></>)
+                    }
+              </>)
+            }
             </>
           )}
         </div>

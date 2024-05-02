@@ -46,6 +46,8 @@ Route::get('chat/get-private-request', [ChatController::class, 'getPrivateReques
 Route::get('chat/cancel-streaming/{id}', [ChatController::class, 'cancelStreaming'])->name('chat.requestCacel');
 Route::get('chat/accept-streaming/{id}', [ChatController::class, 'acceptStreaming'])->name('chat.requestAccept');
 Route::post('chat/finished-streaming-chat', [ChatController::class, 'finishedStreamingChat'])->name('chat.finished-streaming-chat');
+Route::get('chat/re-start-streaming', [ChatController::class, 'reStartStreaming'])->name('chat.re-start-streaming');
+Route::get('chat/stop-streaming', [ChatController::class, 'stopStreaming'])->name('chat.stope-streaming');
 
 // schedule
 Route::get('schedule/for-channel/{user}', [ScheduleController::class, 'getSchedule'])->name('schedule.get');

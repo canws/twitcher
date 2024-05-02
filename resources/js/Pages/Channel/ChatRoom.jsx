@@ -162,20 +162,20 @@ export default function ChatRoom({ streamer, forceScroll = false }) {
     };
 
     const sendMessage = async (e) => {
-    e.preventDefault();
-    const streamerId = streamer.id;
-    
-    try {
-        await axios.post(route("chat.sendMessage", { user: streamerId }), {
-            message: msg,
-            chatType: chatTypeData,
-        });
-        setMsg("");
-        scrollTheChat();
-    } catch (error) {
-        toast.error(error.response?.data?.message);
-    }
-};
+        e.preventDefault();
+        const streamerId = streamer.id;
+        
+        try {
+            await axios.post(route("chat.sendMessage", { user: streamerId }), {
+                message: msg,
+                chatType: chatTypeData,
+            });
+            setMsg("");
+            scrollTheChat();
+        } catch (error) {
+            toast.error(error.response?.data?.message);
+        }
+    };
 
 
     return (

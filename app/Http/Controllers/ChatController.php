@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Events\ChatMessageEvent;
 use App\Events\PrivateChatMessageEvent;
+use App\Events\LivePrivateStreamStarted;
+use App\Events\LiveStreamRefresh;
+use App\Events\LiveStreamStarted;
+use App\Events\LiveStreamStopped;
+
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Chat;
@@ -171,9 +176,10 @@ class ChatController extends Controller
                     'message' => 'start streaming'
                 ]);
                 
-                // broadcast(new ChatMessageEvent($chat));
+                broadcast(new LiveStreamRefresh());
                 event(new PrivateChatMessageEvent($chat ,$privateStream));
-
+                broadcast(new LiveStreamStarted($user));
+                event(new LivePrivateStreamStarted($user ,$privateStream,$chat));
                 $messages = Chat::where('chat_type', $chatType)->latest()->take(50)->get();
                 $chatMessage = $messages->reverse()->flatten();
 
@@ -210,6 +216,8 @@ class ChatController extends Controller
                 ]);
                 PrivateStream::where('id',$privateStream->id)->update(['status' => 'conform']);
                 event(new PrivateChatMessageEvent($chat ,$privateStream));
+                broadcast(new LiveStreamStopped($user));
+                broadcast(new LiveStreamRefresh());
                 $messages = Chat::where('chat_type', $chatType)->latest()->take(50)->get();
                 $chatMessage = $messages->reverse()->flatten();
 
@@ -230,4 +238,36 @@ class ChatController extends Controller
         }
     } 
 
+    public function reStartStreaming(Request $request){
+        try{
+            $user = Auth::user();
+            // fire socket event
+            broadcast(new LiveStreamStarted($user));
+            broadcast(new LiveStreamRefresh());
+            return response()->json([
+                'status' => true,
+                'message' => __("Public streaming start !")
+            ]);
+           
+        } catch (Exception $e) {
+            // Handle exceptions
+            return response()->json(['status' => false, 'message' => __("An error occurred. Please try again later.")]);
+        }
+    } 
+    public function stopStreaming(Request $request){
+        try{
+            $user = Auth::user();
+            // fire socket event
+            broadcast(new LiveStreamStopped($user));
+            broadcast(new LiveStreamRefresh());
+            return response()->json([
+                'status' => true,
+                'message' => __("Public streaming stoped !")
+            ]);
+           
+        } catch (Exception $e) {
+            // Handle exceptions
+            return response()->json(['status' => false, 'message' => __("An error occurred. Please try again later.")]);
+        }
+    } 
 }

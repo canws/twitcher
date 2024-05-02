@@ -4,15 +4,28 @@ import Textarea from "@/Components/Textarea";
 import __ from "@/Functions/Translate";
 import { usePage } from "@inertiajs/inertia-react";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function StreamInstructions({ streamKey, streamUser }) {
     const { auth, rtmp_url } = usePage().props;
     const [tab, setTab] = useState("desktop");
 
     if (auth?.user?.username !== streamUser) {
-        return __("User offline!");
+        return __("Streamer Private or  offline!");
+        toast.success("Streamer Private or  offline!");
     }
 
+    const reStartStreaming = async (e) => {
+        e.preventDefault();
+    
+            axios.get(route("chat.re-start-streaming"))
+            .then((resp) => {
+                console.log("resp",resp);
+                if(resp.data.status === true){
+                    toast.success(__(resp.data.message));
+                }
+            }).catch(Error => toast.error(__("Error banning user")));
+        };
     return (
         <div className="bg-white dark:bg-zinc-900 mr-10 p-5">
             <div className="my-5">
@@ -34,8 +47,13 @@ export default function StreamInstructions({ streamKey, streamUser }) {
                             : "text-gray-700 dark:text-white"
                     }`}
                 >
-                    {__("Mobile Instructions")}
+                    {__("Mobile Instructions")}   
                 </button>
+                <div class="flex justify-end">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={reStartStreaming}>
+                        Public Steaming
+                    </button>
+                </div>
             </div>
 
             <h2 className="text-2xl pb-2 mt-5 border-b dark:border-b-zinc-800 font-semibold dark:text-white text-gray-700">
