@@ -11,6 +11,8 @@
     <?php if(request()->route() && request()->route()->getName() == 'home'): ?>
     <meta name="description" content="<?php echo e(opt('seo_desc')); ?>" />
     <meta name="keywords" content="<?php echo e(opt('seo_keys')); ?>" />
+    <?php echo e($headerData ?? ''); ?>
+
     <?php endif; ?>
 
     <?php if(request()->route() && request()->route()->getName() == 'channel'): ?>
@@ -59,6 +61,8 @@
         <?php if (!isset($__inertiaSsrDispatched)) { $__inertiaSsrDispatched = true; $__inertiaSsrResponse = app(\Inertia\Ssr\Gateway::class)->dispatch($page); }  if ($__inertiaSsrResponse) { echo $__inertiaSsrResponse->body; } else { ?><div id="app" data-page="<?php echo e(json_encode($page)); ?>"></div><?php } ?>
         <div id="modal-root"></div>
     </div>
+    <?php echo e($footerData ?? ''); ?>
+
 </body>
 
 </html><?php /**PATH D:\canws\twitcher\love248\resources\views/app.blade.php ENDPATH**/ ?>

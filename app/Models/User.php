@@ -166,6 +166,13 @@ class User extends Authenticatable
     public function privateList(){
         return $this->belongsTo(PrivateStream :: class , 'user_id' , 'id');
     }
+
+    public function getPrivateStremEarning(){
+        return $this->hasMany(PrivateStream :: class ,'streamer_id' , 'id')->where('status','conform');
+    }
+    public function getVideoSales(){
+        return $this->hasMany(VideoSales :: class ,'streamer_id' , 'id');
+    }
     public static function boot()
     {
         parent::boot();

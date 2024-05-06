@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\TagPixelController;
 
 // admin panel routes
 Route::get('admin', [Admin::class, 'dashboard'])->name('admin.dashboard');
@@ -93,3 +94,18 @@ Route::get('admin/mailtest', [Admin::class, 'mailtest']);
 // Cloud settings
 Route::get('admin/cloud', [Admin::class, 'cloudSettings']);
 Route::post('admin/save-cloud-settings', [Admin::class, 'saveCloudSettings']);
+
+// streamer earning
+Route::get('admin/streamer-earning',[Admin::class , 'getStreamingEarning']);
+Route::get('admin/videos-sales',[Admin::class , 'getVideoSales']);
+
+// Tag Pixels
+Route::controller(TagPixelController::class)->prefix('admin/tag-pixels/')->group(function (){
+    Route::get('/', 'index')->name('admin.tag-pixels.index');
+    Route::get('create', 'create')->name('admin.tag-pixels.create');
+    Route::post('store', 'store')->name('admin.tag-pixels.store');
+    Route::get('edit/{id}', 'edit')->name('admin.tag-pixels.edit');
+    Route::post('update', 'update')->name('admin.tag-pixels.update');
+    Route::get('delete/{id}', 'destory')->name('admin.tag-pixels.delete');
+
+});

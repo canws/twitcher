@@ -11,6 +11,7 @@
     @if(request()->route() && request()->route()->getName() == 'home')
     <meta name="description" content="{{ opt('seo_desc')  }}" />
     <meta name="keywords" content="{{ opt('seo_keys')  }}" />
+    {{$headerData ?? ''}}
     @endif
 
     @if(request()->route() && request()->route()->getName() == 'channel')
@@ -45,6 +46,7 @@
         @inertia
         <div id="modal-root"></div>
     </div>
+    {{$footerData ?? ''}}
 </body>
 
 </html>

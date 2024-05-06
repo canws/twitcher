@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Models\Video;
+use App\Models\TagPixel;
 
 class HomeController extends Controller
 {
@@ -36,6 +37,9 @@ class HomeController extends Controller
                             ->take(6)
                             ->get();
 
+        $headerData =  TagPixel::where('type','header')->latest()->first();
+        $footerData = TagPixel::where('type','footer')->latest()->first();
+                            
         $meta_title = opt('seo_title');
         $meta_description = opt('seo_desc');
         $meta_keys = opt('seo_keys');
@@ -50,7 +54,9 @@ class HomeController extends Controller
             'meta_description' => $meta_description,
             'meta_keys' => $meta_keys,
             'videos' => $videos,
-            'hide_live_channels' => $hide_live_channels
+            'hide_live_channels' => $hide_live_channels,
+            'headerData' =>$headerData,
+            'footerData' =>$footerData,
         ]);
     }
 

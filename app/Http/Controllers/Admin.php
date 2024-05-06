@@ -25,6 +25,9 @@ use App\Models\TokenSale;
 use App\Models\Video;
 use App\Models\VideoCategories;
 use App\Models\Withdrawal;
+use App\Models\VideoSales;
+use App\Models\PrivateStream;
+
 use App\Notifications\PaymentRequestProcessed;
 use App\Notifications\StreamerVerifiedNotification;
 use Illuminate\Support\Facades\Cache;
@@ -1170,4 +1173,50 @@ class Admin extends Controller
 
         return back()->with('msg', 'Report successfully removed.');
     }
+
+    // get streaming earing data 
+
+    public function getStreamingEarning(Request $request)
+    {
+        $active = 'Stream';
+        $streamersWithEarningsAndTips = User::where('is_streamer', 'yes')->with('getPrivateStremEarning', 'tipsReceived')->get();
+        $stremerData = [];
+
+        if (count($streamersWithEarningsAndTips) > 0) {
+            foreach ($streamersWithEarningsAndTips as $streamer) {
+                $totalEarnings = $streamer->getPrivateStremEarning ? $streamer->getPrivateStremEarning->sum('tokens') : 0;
+                $totalTipsReceived = $streamer->tipsReceived ? $streamer->tipsReceived->sum('tokens') : 0;
+
+                // Add streamer's data to the array
+                $stremerData[] = [
+                    'user' => $streamer,
+                    'totalEarnings' => $totalEarnings,
+                    'totalTipsReceived' => $totalTipsReceived,
+                ];
+            }
+        }
+        return view('admin.stream-earning', compact('active', 'stremerData'));
+    }
+
+    // get videos sales data 
+    public function getVideoSales(Request $request)
+    {
+        $active = 'videos';
+         $videosData = User::where('is_streamer', 'yes')->with('getVideoSales')->get();
+        $stremerData = [];
+
+        if (count($videosData) > 0) {
+            foreach ($videosData as $streamer) {
+                $totalEarnings = $streamer->getVideoSales ? $streamer->getVideoSales->sum('price') : 0;
+                // Add streamer's data to the array
+                $stremerData[] = [
+                    'user' => $streamer,
+                    'totalEarnings' => $totalEarnings,
+                ];
+            }
+        }
+        return view('admin.videos-sales', compact('active', 'stremerData'));
+    }
+
+    
 }
