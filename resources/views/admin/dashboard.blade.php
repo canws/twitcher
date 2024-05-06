@@ -7,7 +7,7 @@
 @section('extra_top')
 <div class="md:flex items-center">
 
-    <div class="rounded-lg bg-yellow-400 text-white px-10 py-3 border-2 border-white shadow-md">
+    <div class="rounded-lg  bg-yellow-400 text-white px-10 py-3 border-2 border-white shadow-md">
         <h1 class="text-2xl font-bold text-center">{{ $allUsers }}</h1>
         <h2 class="text-xl text-center">
             @if ($allUsers == 1)
@@ -36,6 +36,18 @@
         <h1 class="text-2xl font-bold text-center">{{ __('Earnings') }}</h1>
         <h2 class="text-xl text-center">
             {{ opt('payment-settings.currency_symbol') . $tokensAmount }}
+        </h2>
+    </div>
+    <div class="rounded-lg md:ml-5 bg-purple-500 text-white px-10 py-3 border-2 border-white shadow-md">
+        <h1 class="text-2xl font-bold text-center">{{ __('Streaming') }}</h1>
+        <h2 class="text-xl text-center">
+            {{$privateStreaming }}
+        </h2>
+    </div>
+    <div class="rounded-lg md:ml-5 bg-lime-500 text-white px-10 py-3 border-2 border-white shadow-md">
+        <h1 class="text-2xl font-bold text-center">{{ __('Videos') }}</h1>
+        <h2 class="text-xl text-center">
+            {{  $buyVideos }}
         </h2>
     </div>
 

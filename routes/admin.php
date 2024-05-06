@@ -98,6 +98,7 @@ Route::post('admin/save-cloud-settings', [Admin::class, 'saveCloudSettings']);
 // streamer earning
 Route::get('admin/streamer-earning',[Admin::class , 'getStreamingEarning']);
 Route::get('admin/videos-sales',[Admin::class , 'getVideoSales']);
+Route::get('admin/commission-list',[Admin::class , 'getCommission']);
 
 // Tag Pixels
 Route::controller(TagPixelController::class)->prefix('admin/tag-pixels/')->group(function (){

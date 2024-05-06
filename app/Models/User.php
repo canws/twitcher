@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 use Overtrue\LaravelFollow\Traits\Follower;
 use Overtrue\LaravelFollow\Traits\Followable;
-use app\Models\getUsersInfo;
+use App\Models\getUsersInfo;
+use App\Models\Commission;
 
 class User extends Authenticatable
 {
@@ -173,6 +174,10 @@ class User extends Authenticatable
     public function getVideoSales(){
         return $this->hasMany(VideoSales :: class ,'streamer_id' , 'id');
     }
+    public function getCommission(){
+        return $this->hasMany(Commission :: class ,'streamer_id' , 'id');
+    }
+
     public static function boot()
     {
         parent::boot();

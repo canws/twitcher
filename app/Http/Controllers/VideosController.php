@@ -13,6 +13,9 @@ use Inertia\Inertia;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File as FileFacade;
 use Illuminate\Http\File;
+use App\Models\Commission;
+use App\Models\User;
+use Auth;
 
 class VideosController extends Controller
 {
@@ -58,25 +61,43 @@ class VideosController extends Controller
 
     public function purchaseVideo(Video $video, Request $request)
     {
-        // check if user already bought
+        $user = Auth::user();
+        $admin = User::where('is_supper_admin', 'yes')->first();
+    
         if ($video->canBePlayed) {
             return back()->with('message', __('You already have access to this video'));
         }
-
-        // record order
-        $videoSale = new VideoSales();
-        $videoSale->video_id = $video->id;
-        $videoSale->streamer_id = $video->user_id;
-        $videoSale->user_id = $request->user()->id;
-        $videoSale->price = $video->price;
-        $videoSale->save();
-
-        // notify streamer of this sale (on platform)
-        $video->streamer->notify(new NewVideoSale($videoSale));
-
-        // redirect to my videos
-        return redirect(route('videos.ordered'))->with('message', __("Thank you, you can now play the video!"));
+    
+        if ($video->price < $user->tokens) {
+            $tokens = $video->price;
+            $admin_token = $tokens * 0.25;
+            $streamer_token = $tokens * 0.75;
+    
+            Commission::create([
+                'type' => 'Buy Videos',
+                'video_id' => $video->id,
+                'streamer_id' => $video->user_id,
+                'tokens' => $admin_token,
+                'admin_id' => $admin->id,
+            ]);
+    
+         $videoSale = VideoSales::create([
+                'video_id' => $video->id,
+                'streamer_id' => $video->user_id,
+                'user_id' => $request->user()->id,
+                'price' => $streamer_token,
+            ]);
+    
+            $user->decrement('tokens', $video->price);
+            User::where('id', $video->user_id)->increment('tokens', $streamer_token);
+            $admin->increment('tokens', $admin_token);
+    
+            $video->streamer->notify(new NewVideoSale($videoSale));
+    
+            return redirect(route('videos.ordered'))->with('message', __("Thank you, you can now play the video!"));
+        }
     }
+    
 
     public function increaseViews(Video $video, Request $request)
     {

@@ -27,6 +27,7 @@ use App\Models\VideoCategories;
 use App\Models\Withdrawal;
 use App\Models\VideoSales;
 use App\Models\PrivateStream;
+use App\Models\Commission;
 
 use App\Notifications\PaymentRequestProcessed;
 use App\Notifications\StreamerVerifiedNotification;
@@ -146,7 +147,8 @@ class Admin extends Controller
 
         // get tokens amount total
         $tokensAmount = TokenSale::where('status', 'paid')->sum('amount');
-
+       $privateStreaming =   Commission::where('type','Private Streaming')->sum('tokens');
+       $buyVideos =   Commission::where('type','Buy Videos')->sum('tokens');
 
         $date = \Carbon\Carbon::parse('31 days ago');
         $dateRange = \Carbon\CarbonPeriod::create($date, now());
@@ -186,7 +188,9 @@ class Admin extends Controller
             ->with('allUsers', $allUsers)
             ->with('tokensAmount', $tokensAmount)
             ->with('tokensSold', $tokensSold)
-            ->with('earnings', $earnings);
+            ->with('earnings', $earnings)
+            ->with('buyVideos', $buyVideos)
+            ->with('privateStreaming', $privateStreaming);
     }
 
     // verify streamer
@@ -1217,6 +1221,15 @@ class Admin extends Controller
         }
         return view('admin.videos-sales', compact('active', 'stremerData'));
     }
+
+      // get commission list  
+      public function getCommission(Request $request)
+      {
+        // Commission::
+             $active = 'videos';
+               $commData = Commission::all();
+            return view('admin.commission', compact('active', 'commData'));
+      }
 
     
 }

@@ -15,6 +15,8 @@ use App\Models\Chat;
 use App\Models\StreamingPrice;
 use App\Models\StreamingTime;
 use App\Models\PrivateStream;
+use App\Models\Commission;
+
 use Auth;
 use Redirect;
 use Exception;
@@ -214,6 +216,24 @@ class ChatController extends Controller
                     'streamer_id' => $privateStream->streamer_id,
                     'message' => 'finished streaming'
                 ]);
+
+                $admin = User::where('is_supper_admin', 'yes')->first();
+                $tokens = $privateStream->tokens;
+                $admin_token = $tokens * 0.25;
+                $streamer_token = $tokens * 0.75;
+        
+                Commission::create([
+                    'type' => 'Private Streaming',
+                    'video_id' => $privateStream->id,
+                    'streamer_id' => $user->id,
+                    'tokens' => $admin_token,
+                    'admin_id' => $admin->id,
+                ]);
+
+                $user->increment('tokens', $streamer_token);
+                $admin->increment('tokens', $admin_token);
+
+
                 PrivateStream::where('id',$privateStream->id)->update(['status' => 'conform']);
                 event(new PrivateChatMessageEvent($chat ,$privateStream));
                 broadcast(new LiveStreamStopped($user));
