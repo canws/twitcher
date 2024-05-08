@@ -153,7 +153,14 @@
                     </span>
                     <span class="ml-2 text-sm tracking-wide truncate">{{ __('App Configuration') }}</span></a>
             </li>
-
+            <li>
+                <a href="{{route('admin.send-mail.index')}}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-gray-800 pr-6">
+                    <span class="inline-flex justify-center items-center ml-4">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </span>
+                    <span class="ml-2 text-sm tracking-wide truncate">{{ __('Send Mail') }}</span>
+                </a>
+            </li>
             <li>
                 <a href="/admin/mailconfiguration" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-gray-800 pr-6">
                     <span class="inline-flex justify-center items-center ml-4">

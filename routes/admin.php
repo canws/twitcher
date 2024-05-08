@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TagPixelController;
+use App\Http\Controllers\Admin\SendEmailController;
 
 // admin panel routes
 Route::get('admin', [Admin::class, 'dashboard'])->name('admin.dashboard');
@@ -100,6 +101,7 @@ Route::get('admin/streamer-earning',[Admin::class , 'getStreamingEarning']);
 Route::get('admin/videos-sales',[Admin::class , 'getVideoSales']);
 Route::get('admin/commission-list',[Admin::class , 'getCommission']);
 
+
 // Tag Pixels
 Route::controller(TagPixelController::class)->prefix('admin/tag-pixels/')->group(function (){
     Route::get('/', 'index')->name('admin.tag-pixels.index');
@@ -108,5 +110,13 @@ Route::controller(TagPixelController::class)->prefix('admin/tag-pixels/')->group
     Route::get('edit/{id}', 'edit')->name('admin.tag-pixels.edit');
     Route::post('update', 'update')->name('admin.tag-pixels.update');
     Route::get('delete/{id}', 'destory')->name('admin.tag-pixels.delete');
+});
 
+Route::controller(SendEmailController::class)->prefix('admin/send-mail/')->group(function (){
+    Route::get('/', 'index')->name('admin.send-mail.index');
+    Route::get('create', 'create')->name('admin.send-mail.create');
+    Route::post('store', 'store')->name('admin.send-mail.store');
+    Route::get('edit/{id}', 'edit')->name('admin.send-mail.edit');
+    Route::post('update', 'update')->name('admin.send-mail.update');
+    Route::get('delete/{id}', 'destory')->name('admin.send-mail.delete');
 });
