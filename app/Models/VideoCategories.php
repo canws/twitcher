@@ -18,7 +18,10 @@ class VideoCategories extends Model
     {
         return $this->hasMany(Video::class, 'category_id');
     }
-
+    public function gallery()
+    {
+        return $this->hasMany(Gallery::class, 'category_id');
+    }
     // slug attribute
     public function getSlugAttribute()
     {

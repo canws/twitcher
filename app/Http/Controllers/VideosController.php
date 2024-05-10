@@ -29,7 +29,8 @@ class VideosController extends Controller
     {
         $videos = $request->user()
                         ->purchasedVideos()
-                        ->with('streamer');
+                        ->with('streamer')
+                        ->latest();
 
         if ($request->has('search_term')) {
             $videos->where('title', 'LIKE', '%'.$request->search_term.'%');
@@ -250,8 +251,6 @@ class VideosController extends Controller
             'disk' => env('FILESYSTEM_DISK'),
             'category_id' => $request->category_id
     ]);
-
-
         return to_route('videos.list')->with('message', __('Video successfully uploaded'));
     }
 

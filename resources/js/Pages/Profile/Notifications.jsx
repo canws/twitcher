@@ -275,6 +275,69 @@ export default function Edit({ notifications }) {
                 );
 
                 break;
+                case "App\\Notifications\\NewGallerySale":
+                    return (
+                        <div className="flex flex-wrap justify-between">
+                            <div className="flex items-center space-x-2">
+                                <div className="flex-shrink-0">
+                                    <Link
+                                        href={`${
+                                            n.data.is_streamer === "yes"
+                                                ? route("channel", {
+                                                      user: n?.data?.username,
+                                                  })
+                                                : ""
+                                        }`}
+                                    >
+                                        <img
+                                            src={n.data.profile_picture}
+                                            alt=""
+                                            className="rounded-full h-14 w-14 border-zinc-200 dark:border-indigo-200 border"
+                                        />
+                                    </Link>
+                                </div>
+                                <div>
+                                    <Link
+                                        href={`${
+                                            n.data.is_streamer === "yes"
+                                                ? route("channel", {
+                                                      user: n?.data?.username,
+                                                  })
+                                                : ""
+                                        }`}
+                                        className="text-sky-500"
+                                    >
+                                        @{n?.data?.username}
+                                    </Link>
+                                    <br />
+                                    <span className="text-gray-600 dark:text-gray-100">
+                                        {__(
+                                            'just bought your Images ":videoTitle" for :tokensAmount tokens',
+                                            {
+                                                videoTitle: n.data.gallery.title,
+                                                tokensAmount: n.data.price,
+                                            }
+                                        )}
+                                    </span>
+                                </div>
+                            </div>
+                            <div>
+                                {n.read_at === null ? (
+                                    <button
+                                        onClick={(e) => markAsRead(n)}
+                                        className="inline-flex items-center space-x-3 text-sky-500 hover:text-sky-600"
+                                    >
+                                        <BsCheckAll />
+                                        {__("Mark as Read")}
+                                    </button>
+                                ) : (
+                                    <BsCheckCircleFill />
+                                )}
+                            </div>
+                        </div>
+                    );
+    
+                    break;
             default:
                 return `NOTIFICATION_TYPE: ${n.type}`;
                 break;

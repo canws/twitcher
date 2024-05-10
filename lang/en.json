@@ -265,6 +265,7 @@
    "1 view":"1 view",
    ":viewsCount views":":viewsCount views",
    "Are you sure you want to remove this VIDEO?":"Are you sure you want to remove this VIDEO?",
+   "Are you sure you want to remove this Image?":"Are you sure you want to remove this Image?",
    "No videos matching ":"No videos matching ",
    "Reset Search":"Reset Search",
    "No videos uploaded by streamers.":"No videos uploaded by streamers.",
@@ -691,5 +692,9 @@
    "Purchase Video":"Purchase Video",
    "Send Private Chat Request":"Send Private Chat Request",
    "Add Streaming":"Add Streaming",
-   "Streamer Earning":"Streamer Earning"
+   "Streamer Earning":"Streamer Earning",
+   "Upload Gallery":"Upload Gallery",
+   "Gallery Ordered":"Gallery Ordered",
+   "Upload Gallery":"Upload Gallery",
+   "My Gallery":"My Gallery"
 }

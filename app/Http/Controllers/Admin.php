@@ -149,6 +149,7 @@ class Admin extends Controller
         $tokensAmount = TokenSale::where('status', 'paid')->sum('amount');
        $privateStreaming =   Commission::where('type','Private Streaming')->sum('tokens');
        $buyVideos =   Commission::where('type','Buy Videos')->sum('tokens');
+       $buyGallery =   Commission::where('type','Buy Gallery')->sum('tokens');
 
         $date = \Carbon\Carbon::parse('31 days ago');
         $dateRange = \Carbon\CarbonPeriod::create($date, now());
@@ -190,6 +191,7 @@ class Admin extends Controller
             ->with('tokensSold', $tokensSold)
             ->with('earnings', $earnings)
             ->with('buyVideos', $buyVideos)
+            ->with('buyGallery', $buyGallery)
             ->with('privateStreaming', $privateStreaming);
     }
 
@@ -1222,6 +1224,24 @@ class Admin extends Controller
         return view('admin.videos-sales', compact('active', 'stremerData'));
     }
 
+    public function getGallerySales(Request $request)
+    {
+        $active = 'Gallery';
+         $videosData = User::where('is_streamer', 'yes')->with('getGallerySales')->get();
+        $stremerData = [];
+
+        if (count($videosData) > 0) {
+            foreach ($videosData as $streamer) {
+                $totalEarnings = $streamer->getGallerySales ? $streamer->getGallerySales->sum('price') : 0;
+                // Add streamer's data to the array
+                $stremerData[] = [
+                    'user' => $streamer,
+                    'totalEarnings' => $totalEarnings,
+                ];
+            }
+        }
+        return view('admin.gallery-sales', compact('active', 'stremerData'));
+    }
       // get commission list  
       public function getCommission(Request $request)
       {

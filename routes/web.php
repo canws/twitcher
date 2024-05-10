@@ -29,6 +29,7 @@ use App\Http\Controllers\TipsController;
 use App\Http\Controllers\VideosController;
 use App\Http\Middleware\BanMiddleware;
 use App\Http\Middleware\HandleInertiaRequests;
+use App\Http\Controllers\GalleryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -137,8 +138,25 @@ Route::get('/videos-manager', [VideosController::class, 'videosManager'])->name(
 Route::get('/upload-videos', [VideosController::class, 'uploadVideos'])->name('videos.upload');
 Route::get('/edit-video/{video}', [VideosController::class, 'editVideo'])->name('videos.edit');
 Route::post('/update-video/{video}', [VideosController::class, 'updateVideo'])->name('videos.update');
-Route::post('/save', [VideosController::class, 'save'])->name('videos.save');
+Route::post('/save', [VideosController::class, 'save'])->name('videos-data.save');
 Route::post('/delete', [VideosController::class, 'delete'])->name('videos.delete');
+
+
+
+
+// photo gallery 
+Route::get('/browse-gallery/{videocategory?}{slug?}', [GalleryController::class, 'browse'])->name('gallery.browse');
+Route::get('/gallery/{gallery}-{slug}', [GalleryController::class, 'galleryPage'])->name('gallery.page');
+Route::get('/gallery/unlock/{gallery}', [GalleryController::class, 'unlockGallery'])->name('gallery.unlock');
+Route::post('/gallery/purchase/{gallery}', [GalleryController::class, 'purchaseGallery'])->name('gallery.purchase');
+Route::post('increase-views/{gallery}', [GalleryController::class, 'increaseViews'])->name('gallery.increaseViews');
+Route::get('/my-gallery', [GalleryController::class, 'myGallery'])->name('gallery.ordered');
+Route::get('/gallery-manager', [GalleryController::class, 'galleryManager'])->name('gallery.list');
+Route::get('/upload-gallery', [GalleryController::class, 'uploadGallery'])->name('gallery.upload');
+Route::get('/edit-gallery/{gallery}', [GalleryController::class, 'editGallery'])->name('gallery.edit');
+Route::post('/update-gallery/{gallery}', [GalleryController::class, 'updateGallery'])->name('gallery.update');
+Route::post('/gallery-save', [GalleryController::class, 'save'])->name('gallery.save');
+Route::post('/gallery-delete', [GalleryController::class, 'delete'])->name('gallery.delete');
 
 
 // Contact

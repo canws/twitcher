@@ -180,6 +180,15 @@ export default function TopNavi({ children }) {
                         <span>{__("Videos")}</span>
                     </Link>
                     <Link
+                        href={route("gallery.browse")}
+                        className="ml-5 hidden md:inline-flex items-center text-white text-lg hover:text-indigo-200 font-semibold"
+                    >
+                        <span>
+                            <MdOutlineVideoLibrary className="mr-1" />
+                        </span>
+                        <span>{__("Galleries")}</span>
+                    </Link>
+                    <Link
                         href={route("token.packages")}
                         className="ml-5 hidden md:inline-flex items-center text-white text-lg hover:text-indigo-200 font-semibold"
                     >
@@ -301,6 +310,19 @@ export default function TopNavi({ children }) {
                                         {__("My Videos")}
                                     </Dropdown.Link>
 
+                                    {auth.user.is_streamer === "yes" && (
+                                        <Dropdown.Link
+                                            href={route("gallery.list")}
+                                        >
+                                            {__("Upload Gallery")}
+                                        </Dropdown.Link>
+                                    )}
+
+                                    <Dropdown.Link
+                                        href={route("gallery.ordered")}
+                                    >
+                                        {__("My Gallery")}
+                                    </Dropdown.Link>
                                     {auth.user.is_streamer === "yes" && (
                                         <Dropdown.Link
                                             href={route("channel.followers", {

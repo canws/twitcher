@@ -50,6 +50,12 @@
             {{  $buyVideos }}
         </h2>
     </div>
+    <div class="rounded-lg md:ml-5 bg-indigo-500 text-white px-10 py-3 border-2 border-white shadow-md">
+        <h1 class="text-2xl font-bold text-center">{{ __('Gallery') }}</h1>
+        <h2 class="text-xl text-center">
+            {{  $buyGallery }}
+        </h2>
+    </div>
 
 </div>
 

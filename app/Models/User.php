@@ -139,11 +139,19 @@ class User extends Authenticatable
         return $this->hasMany(Video::class);
     }
 
+    public function gallery()
+    {
+        return $this->hasMany(Gallery::class);
+    }
+
     public function purchasedVideos()
     {
         return $this->hasManyThrough(Video::class, VideoSales::class, 'user_id', 'id', 'id', 'video_id');
     }
-
+    public function purchasedGallery()
+    {
+        return $this->hasManyThrough(Gallery::class, GallerySales::class, 'user_id', 'id', 'id', 'gallery_id');
+    }
     public function chats()
     {
         return $this->hasMany(Chat::class);
@@ -174,6 +182,9 @@ class User extends Authenticatable
     public function getVideoSales(){
         return $this->hasMany(VideoSales :: class ,'streamer_id' , 'id');
     }
+    public function getGallerySales(){
+        return $this->hasMany(GallerySales :: class ,'streamer_id' , 'id');
+    }
     public function getCommission(){
         return $this->hasMany(Commission :: class ,'streamer_id' , 'id');
     }
@@ -186,6 +197,8 @@ class User extends Authenticatable
             DB::transaction(function () use ($user) {
                 $user->purchasedVideos()->delete();
                 $user->videos()->delete();
+                $user->gallery()->delete();
+                $user->purchasedGallery()->delete();
                 $user->subscriptions()->delete();
                 $user->tiers()->delete();
                 $user->categories()->delete();

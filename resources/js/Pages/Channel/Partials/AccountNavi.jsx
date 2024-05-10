@@ -93,7 +93,7 @@ export default function AccountNavi({ active }) {
                         {__("Upload Videos")}
                     </Link>
                 )}
-                <Link
+                 <Link
                     className={`block font-bold ${active == "videos"
                         ? "text-indigo-900"
                         : "text-indigo-600"
@@ -101,6 +101,26 @@ export default function AccountNavi({ active }) {
                     href={route("videos.ordered")}
                 >
                     {__("My Videos")}
+                </Link>
+                {auth.user.is_streamer === "yes" && (
+                    <Link
+                        className={`block font-bold ${active == "upload-gallery"
+                            ? "text-indigo-900"
+                            : "text-indigo-600"
+                            } hover:text-indigo-800 py-2 dark:text-white dark:hover:text-indigo-300  dark:border-zinc-800 border-b border-indigo-100 my-2 px-5`}
+                        href={route("gallery.list")}
+                    >
+                        {__("Upload Gallery")}
+                    </Link>
+                )}
+                <Link
+                    className={`block font-bold ${active == "gallery"
+                        ? "text-indigo-900"
+                        : "text-indigo-600"
+                        } hover:text-indigo-800 py-2 dark:text-white dark:hover:text-indigo-300  dark:border-zinc-800 border-b border-indigo-100 my-2 px-5`}
+                    href={route("gallery.ordered")}
+                >
+                    {__("My Gallery")}
                 </Link>
                 {auth.user.is_streamer === "yes" && (
                     <Link
