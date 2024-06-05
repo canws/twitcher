@@ -45,6 +45,21 @@ Route::post('admin/add-token-pack', [Admin::class, 'addTokenPack']);
 Route::get('admin/edit-token-pack/{tokenPack}', [Admin::class, 'editTokenPack']);
 Route::post('admin/update-token-pack/{tokenPack}', [Admin::class, 'updateTokenPack']);
 
+//    subscription plan ont the time basis instead of tokens
+Route::get('admin/subscription-plans', [Admin::class, 'subscriptionPlans']);
+Route::get('admin/create-subscription-plan', [Admin::class, 'createSubscriptionPlan']);
+Route::post('admin/add-subscription-plans', [Admin::class, 'addSubscriptionPlans']);
+Route::get('admin/edit-subscription-plan/{tokenPack}', [Admin::class, 'editSubscriptionPlan']);
+Route::post('admin/update-subscription-plans/{tokenPack}', [Admin::class, 'updateSubscriptionPlans']);
+
+
+Route::get('admin/subscription-sells', [Admin::class, 'subscriptionSales']);
+Route::get('admin/add-subscription-sale', [Admin::class, 'addSubscriptionSale'])->name('admin.addSubscriptionSale');
+Route::post('admin/save-subscription-sale/{user}', [Admin::class, 'saveSubscriptionSale']);
+
+
+
+
 
 // Subscriptions related
 Route::get('admin/subscriptions', [Admin::class, 'subscriptions']);

@@ -9,6 +9,7 @@ import Spinner from "@/Components/Spinner";
 import Front from "@/Layouts/Front";
 import TextInput from "@/Components/TextInput";
 import { IoMdFunnel } from "react-icons/io";
+import { Button } from "react-bootstrap";
 
 export default function Channels({ channels, exploreImage }) {
     const { categories } = usePage().props;
@@ -84,12 +85,12 @@ export default function Channels({ channels, exploreImage }) {
                         ref={filters}
                         className="hidden lg:block w-56 lg:flex-shrink-0 lg:mr-5"
                     >
-                        <h3 className="text-indigo-700 dark:text-white text-xl font-bold block p-3 bg-light-violet dark:bg-zinc-900 shadow rounded-t-lg">
+                        <h3 className="text-white text-xl font-bold block p-3 bg-footer shadow rounded-0">
                             {__("Search")}
                         </h3>
-                        <div className="bg-white dark:bg-zinc-800 rounded-b-lg shadow p-3">
+                        <div className="bg-footer dark:bg-zinc-800 rounded-b-lg shadow p-3 rounded-0">
                             <TextInput
-                                className="w-full"
+                                className="w-full rounded-0"
                                 name="search"
                                 value={search}
                                 handleChange={(e) => setSearch(e.target.value)}
@@ -97,22 +98,22 @@ export default function Channels({ channels, exploreImage }) {
                             />
                         </div>
 
-                        <h3 className="mt-5 text-indigo-700 dark:text-white text-xl font-bold block p-3 bg-light-violet dark:bg-zinc-900 shadow rounded-t-lg">
+                        <h3 className="mt-5 text-white text-xl font-bold block p-3 bg-footer shadowrounded-0">
                             {__("Sort By")}
                         </h3>
-                        <div className="bg-white dark:bg-zinc-800 rounded-b-lg shadow p-3">
-                            <div className="flex items-center text-gray-600 dark:text-white">
+                        <div className="bg-footer shadow p-3">
+                            <div className="flex items-center text-white">
                                 <input
                                     type={"radio"}
                                     name="sort"
                                     value="Popularity"
                                     checked={sort === "Popularity"}
-                                    className="mr-2"
+                                    className="mr-2 text-white"
                                     onChange={(e) => setSort(e.target.value)}
                                 />
                                 {__("Popularity")}
                             </div>
-                            <div className="flex items-center text-gray-600 dark:text-white">
+                            <div className="flex items-center  text-white">
                                 <input
                                     type={"radio"}
                                     name="sort"
@@ -123,7 +124,7 @@ export default function Channels({ channels, exploreImage }) {
                                 />
                                 {__("Recently Joined")}
                             </div>
-                            <div className="flex items-center text-gray-600 dark:text-white">
+                            <div className="flex items-center text-white">
                                 <input
                                     type={"radio"}
                                     name="sort"
@@ -134,7 +135,7 @@ export default function Channels({ channels, exploreImage }) {
                                 />
                                 {__("Followers")}
                             </div>
-                            <div className="flex items-center text-gray-600 dark:text-white">
+                            <div className="flex items-center text-white">
                                 <input
                                     type={"radio"}
                                     name="sort"
@@ -147,15 +148,15 @@ export default function Channels({ channels, exploreImage }) {
                             </div>
                         </div>
 
-                        <h3 className="mt-5 text-indigo-700 dark:text-white text-xl font-bold block p-3 bg-light-violet dark:bg-zinc-900 shadow rounded-t-lg">
+                        <h3 className="mt-5 text-white text-xl font-bold block p-3 shadow bg-footer">
                             {__("Category")}
                         </h3>
-                        <div className="bg-white dark:bg-zinc-800 rounded-b-lg shadow p-3">
+                        <div className="bg-footer shadow p-3">
                             {categories.map((cat) => {
                                 return (
                                     <div
                                         key={`catFilter-${cat.id}`}
-                                        className="flex items-center text-gray-600 dark:text-white"
+                                        className="flex items-center text-white"
                                     >
                                         <input
                                             type="checkbox"
@@ -178,9 +179,9 @@ export default function Channels({ channels, exploreImage }) {
                                 <Spinner />
                             </div>
                         ) : (
-                            <button className="mt-5 bg-indigo-500 dark:bg-zinc-800 font-semibold text-white rounded-lg px-2 py-1.5 block w-full">
+                            <Button className="me-2 btn text-uppercase position-relative d-flex w-100 mt-2 mb-5">
                                 {__("Apply Filters")}
-                            </button>
+                            </Button>
                         )}
 
                         <div className="lg:hidden text-center border-t dark:border-zinc-800 border-t-gray-300 py-5">

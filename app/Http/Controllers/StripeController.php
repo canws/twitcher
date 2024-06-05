@@ -17,24 +17,24 @@ class StripeController extends Controller
     }
 
     // purchase
-    public function purchase(TokenPack $tokenPack, Request $request)
-    {
+    public function purchase(TokenPack $tokPack, Request $request)
+    {  
         $stripeImg = asset('images/stripe-cards.png');
         $publicKey = opt('STRIPE_PUBLIC_KEY');
 
         $sale = TokenSale::create([
                     'user_id' => $request->user()->id,
-                    'tokens' => $tokenPack->tokens,
-                    'amount' => $tokenPack->price,
+                    'tokens' => $tokPack->tokens,
+                    'amount' => $tokPack->price,
                     'status' => 'pending',
                     'gateway' => 'Credit Card (Stripe)'
                 ]);
 
         $saleId = $sale->id;
 
-        $cs = $this->paymentIntent($tokenPack, $sale->id);
+        $cs = $this->paymentIntent($tokPack, $sale->id);
 
-        return Inertia::render('Tokens/StripeForm', compact('tokenPack', 'stripeImg', 'publicKey', 'cs', 'saleId'));
+        return Inertia::render('Tokens/StripeForm', compact('tokPack', 'stripeImg', 'publicKey', 'cs', 'saleId'));
     }
 
     // get client secret

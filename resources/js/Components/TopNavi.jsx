@@ -200,7 +200,7 @@ export default function TopNavi({ children }) {
 
                     {!auth.user ? (
                         <>
-                        
+
                             <Link
                                 className="ml-4 hidden md:block text-white hover:text-indigo-200 border border-white hover:border-indigo-200 p-1 rounded-lg px-4 font-semibold"
                                 href={route("login")}
@@ -238,11 +238,10 @@ export default function TopNavi({ children }) {
 
                                 <Dropdown.Content>
                                     <Dropdown.Link
-                                        href={`${
-                                            auth.user.is_streamer === "yes"
-                                                ? route("payout.withdraw")
-                                                : route("profile.myTokens")
-                                        }`}
+                                        href={`${auth.user.is_streamer === "yes"
+                                            ? route("payout.withdraw")
+                                            : route("profile.myTokens")
+                                            }`}
                                     >
                                         <span className="flex items-center bg-green-100 text-green-700 text-xs font-bold justify-center py-1 rounded-lg">
                                             <MdGeneratingTokens className="h-5 w-5" />

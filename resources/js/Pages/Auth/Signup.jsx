@@ -3,6 +3,7 @@ import { Link, Head, usePage } from "@inertiajs/inertia-react";
 import Front from "@/Layouts/Front";
 import __ from "@/Functions/Translate";
 import { toast } from "react-toastify";
+import { Button } from "react-bootstrap";
 
 export default function Signup({ props }) {
     const influencerIcon = "/images/streamer-icon.png";
@@ -18,11 +19,11 @@ export default function Signup({ props }) {
 
     return (
         <Front>
-            <div className="bg-white mx-auto dark:bg-zinc-900 rounded-lg shadow py-5 max-w-5xl text-center">
-                <h2 className="text-3xl text-gray-600 dark:text-zinc-200 font-semibold text-center">
+            <div className="mx-auto dark:bg-zinc-900 shadow py-5 max-w-5xl text-center mb-5" style={{ background: '#141314' }}>
+                <h2 className="text-3xl text-gray-600 text-white font-semibold text-center">
                     {__("Join Our Platform")}
                 </h2>
-                <p className="text-center mb-8 text-xl text-gray-600 dark:text-zinc-200 mt-1">
+                <p className="text-center mb-8 text-xl text-white dark:text-zinc-200 mt-1">
                     {__(
                         "We are welcoming both streamers and users to our platform to get connected to each other."
                     )}
@@ -36,12 +37,12 @@ export default function Signup({ props }) {
                                 className="max-h-96 rounded-full mx-auto border-zinc-200 dark:border-indigo-200 border-4"
                             />
                         </Link>
-                        <Link
+                        <Button
                             href={route("streamer.signup")}
-                            className="bg-pink-600  text-white font-bold py-2 px-4 rounded mb-4 hover:bg-pink-500 mt-5 inline-block"
+                            className="me-2 btn text-uppercase position-relative d-inline-flex mt-5"
                         >
                             {__("I'm a Streamer")}
-                        </Link>
+                        </Button>
                     </div>
                     <div className="col text-center">
                         <Link href={route("register")}>
@@ -51,12 +52,12 @@ export default function Signup({ props }) {
                                 className="max-h-96 rounded-full mx-auto border-zinc-200  dark:border-indigo-200 border-4"
                             />
                         </Link>
-                        <Link
+                        <Button
                             href={route("register")}
-                            className="bg-indigo-700 inline-block mt-5 text-white font-bold py-2 px-4 rounded mb-4 hover:bg-indigo-600"
+                            className="me-2 btn text-uppercase position-relative d-inline-flex mt-5"
                         >
                             {__("I am an User")}
-                        </Link>
+                        </Button>
                     </div>
                 </div>
             </div>

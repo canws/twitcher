@@ -30,7 +30,8 @@ use App\Http\Controllers\VideosController;
 use App\Http\Middleware\BanMiddleware;
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Controllers\GalleryController;
-
+use App\Http\Controllers\SubscriptionPlanController;
+use App\Http\Controllers\StripePlanController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -84,15 +85,16 @@ Route::post('/membership/channel/delete-tier', [MembershipController::class, 'de
 Route::post('/membership/save-thanks-message', [MembershipController::class, 'saveThanks'])->name('membership.save-thanks');
 
 // Tokens
+
 Route::any('/get-tokens', [TokensController::class, 'getTokens'])->name('token.packages');
 Route::get('/tokens/select-gateway/{tokenPack}', [TokensController::class, 'selectGateway'])->name('token.selectGateway');
 
 // PayPal
-Route::get('paypal/purchase/{tokenPack}', [PayPalController::class, 'purchase'])->name('paypal.purchaseTokens');
 Route::get('paypal/processing', [PayPalController::class, 'processing'])->name('paypal.processing');
-
+// Route::get('stripe/purchase/{tokenPack}', [StripeController::class, 'purchase'])->name('stripe.purchaseTokens');
 // Stripe
-Route::get('stripe/purchase/{tokenPack}', [StripeController::class, 'purchase'])->name('stripe.purchaseTokens');
+
+Route::get('stripe/buy/{tokPack}', [StripeController::class, 'purchase'])->name('stripe.buyToks');
 Route::get('stripe/payment-intent/{tokenPack}', [StripeController::class, 'paymentIntent'])->name('stripe.paymentIntent');
 Route::get('stripe/order-complete/{tokenSale}', [StripeController::class, 'processOrder'])->name('stripe.processOrder');
 
@@ -102,6 +104,30 @@ Route::get('ccbill/purchase/{tokenPack}', [CCBillController::class, 'purchase'])
 Route::get('bank-transfer/purchase/{tokenPack}', [BankTransferController::class, 'purchase'])->name('bank.purchaseTokens');
 Route::post('bank-transfer/request/{tokenPack}', [BankTransferController::class, 'confirmPurchase'])->name('bank.confirmPurchase');
 Route::get('bank-transfer/request-processing', [BankTransferController::class, 'requestProcessing'])->name('bank.requestProcessing');
+
+
+
+
+// subscription plan 
+Route::any('/get-subscriptions', [SubscriptionPlanController::class, 'getSubscription'])->name('subscription.plan');
+Route::get('/subscriptions/select-gateways/{tokenPack}', [SubscriptionPlanController::class, 'selectGateways'])->name('subscription.selectGateways');
+
+
+// PayPal
+Route::get('paypal/purchase/{tokenPack}', [PayPalController::class, 'purchase'])->name('paypal.purchaseTokenss');
+Route::get('paypal/processing', [PayPalController::class, 'processing'])->name('paypal.processing');
+
+// Stripe
+Route::get('stripe/purchase/{tokPack}', [StripePlanController::class, 'purchasesss'])->name('stripe.purchaseTokenss');
+Route::get('stripe/payment-intent/{tokenPack}', [StripePlanController::class, 'paymentIntents'])->name('stripe.paymentIntent');
+Route::get('stripe/order-complete/{tokenSale}', [StripePlanController::class, 'processOrders'])->name('stripe.processOrder');
+
+Route::get('ccbill/purchase/{tokenPack}', [CCBillController::class, 'purchase'])->name('ccbill.purchaseTokenss');
+
+// Bank Transfer
+Route::get('bank-transfer/purchase/{tokenPack}', [BankTransferController::class, 'purchases'])->name('bank.purchaseTokenss');
+Route::post('bank-transfer/request/{tokenPack}', [BankTransferController::class, 'confirmPurchases'])->name('bank.confirmPurchase');
+Route::get('bank-transfer/request-processing', [BankTransferController::class, 'requestProcessings'])->name('bank.requestProcessing');
 
 // Categories
 Route::get('/browse-channels/{category?}{slug?}', [BrowseChannelsController::class, 'browse'])->name('channels.browse');
@@ -127,6 +153,11 @@ Route::get('/my-subscriptions', [SubscriptionController::class, 'mySubscriptions
 Route::get('/subscribe/channel/{channel}/tier/{tier}', [SubscriptionController::class, 'selectGateway'])->name('subscribe');
 Route::get('/subscribe/confirm-subscription/channel/{user}/tier/{tier}', [SubscriptionController::class, 'confirmSubscription'])->name('confirm-subscription');
       
+
+
+
+
+
 // Videos
 Route::get('/browse-videos/{videocategory?}{slug?}', [VideosController::class, 'browse'])->name('videos.browse');
 Route::get('/video/{video}-{slug}', [VideosController::class, 'videoPage'])->name('video.page');

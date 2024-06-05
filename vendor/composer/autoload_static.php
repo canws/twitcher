@@ -4,11 +4,11 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit8004bc802f8f8ef7ebe9ac5dbe773b83
+class ComposerStaticInit57881ae0cdacb360e44edd3dc915154f
 {
     public static $files = array (
-        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
@@ -415,8 +415,8 @@ class ComposerStaticInit8004bc802f8f8ef7ebe9ac5dbe773b83
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -574,8 +574,8 @@ class ComposerStaticInit8004bc802f8f8ef7ebe9ac5dbe773b83
         ),
         'Fruitcake\\Cors\\' => 
         array (
-            0 => __DIR__ . '/..' . '/fruitcake/laravel-cors/src',
-            1 => __DIR__ . '/..' . '/fruitcake/php-cors/src',
+            0 => __DIR__ . '/..' . '/fruitcake/php-cors/src',
+            1 => __DIR__ . '/..' . '/fruitcake/laravel-cors/src',
         ),
         'Firebase\\JWT\\' => 
         array (
@@ -824,6 +824,7 @@ class ComposerStaticInit8004bc802f8f8ef7ebe9ac5dbe773b83
         'App\\Models\\Chat' => __DIR__ . '/../..' . '/app/Models/Chat.php',
         'App\\Models\\Commission' => __DIR__ . '/../..' . '/app/Models/Commission.php',
         'App\\Models\\Gallery' => __DIR__ . '/../..' . '/app/Models/Gallery.php',
+        'App\\Models\\GallerySales' => __DIR__ . '/../..' . '/app/Models/GallerySales.php',
         'App\\Models\\Options' => __DIR__ . '/../..' . '/app/Models/Options.php',
         'App\\Models\\Page' => __DIR__ . '/../..' . '/app/Models/Page.php',
         'App\\Models\\PrivateStream' => __DIR__ . '/../..' . '/app/Models/PrivateStream.php',
@@ -847,6 +848,7 @@ class ComposerStaticInit8004bc802f8f8ef7ebe9ac5dbe773b83
         'App\\Notifications\\ContactFormEmail' => __DIR__ . '/../..' . '/app/Notifications/ContactFormEmail.php',
         'App\\Notifications\\NewBankTransferNotification' => __DIR__ . '/../..' . '/app/Notifications/NewBankTransferNotification.php',
         'App\\Notifications\\NewFollower' => __DIR__ . '/../..' . '/app/Notifications/NewFollower.php',
+        'App\\Notifications\\NewGallerySale' => __DIR__ . '/../..' . '/app/Notifications/NewGallerySale.php',
         'App\\Notifications\\NewSubscriber' => __DIR__ . '/../..' . '/app/Notifications/NewSubscriber.php',
         'App\\Notifications\\NewVideoSale' => __DIR__ . '/../..' . '/app/Notifications/NewVideoSale.php',
         'App\\Notifications\\PaymentRequestProcessed' => __DIR__ . '/../..' . '/app/Notifications/PaymentRequestProcessed.php',
@@ -873,8 +875,6 @@ class ComposerStaticInit8004bc802f8f8ef7ebe9ac5dbe773b83
         'Aws\\Account\\Exception\\AccountException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Account/Exception/AccountException.php',
         'Aws\\Acm\\AcmClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Acm/AcmClient.php',
         'Aws\\Acm\\Exception\\AcmException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Acm/Exception/AcmException.php',
-        'Aws\\AlexaForBusiness\\AlexaForBusinessClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AlexaForBusiness/AlexaForBusinessClient.php',
-        'Aws\\AlexaForBusiness\\Exception\\AlexaForBusinessException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AlexaForBusiness/Exception/AlexaForBusinessException.php',
         'Aws\\AmplifyBackend\\AmplifyBackendClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AmplifyBackend/AmplifyBackendClient.php',
         'Aws\\AmplifyBackend\\Exception\\AmplifyBackendException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AmplifyBackend/Exception/AmplifyBackendException.php',
         'Aws\\AmplifyUIBuilder\\AmplifyUIBuilderClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AmplifyUIBuilder/AmplifyUIBuilderClient.php',
@@ -908,6 +908,7 @@ class ComposerStaticInit8004bc802f8f8ef7ebe9ac5dbe773b83
         'Aws\\Api\\Parser\\JsonParser' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Api/Parser/JsonParser.php',
         'Aws\\Api\\Parser\\JsonRpcParser' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Api/Parser/JsonRpcParser.php',
         'Aws\\Api\\Parser\\MetadataParserTrait' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Api/Parser/MetadataParserTrait.php',
+        'Aws\\Api\\Parser\\NonSeekableStreamDecodingEventStreamIterator' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Api/Parser/NonSeekableStreamDecodingEventStreamIterator.php',
         'Aws\\Api\\Parser\\PayloadParserTrait' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Api/Parser/PayloadParserTrait.php',
         'Aws\\Api\\Parser\\QueryParser' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Api/Parser/QueryParser.php',
         'Aws\\Api\\Parser\\RestJsonParser' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Api/Parser/RestJsonParser.php',
@@ -1378,8 +1379,6 @@ class ComposerStaticInit8004bc802f8f8ef7ebe9ac5dbe773b83
         'Aws\\Health\\Exception\\HealthException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Health/Exception/HealthException.php',
         'Aws\\Health\\HealthClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Health/HealthClient.php',
         'Aws\\History' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/History.php',
-        'Aws\\Honeycode\\Exception\\HoneycodeException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Honeycode/Exception/HoneycodeException.php',
-        'Aws\\Honeycode\\HoneycodeClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Honeycode/HoneycodeClient.php',
         'Aws\\IVSRealTime\\Exception\\IVSRealTimeException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/IVSRealTime/Exception/IVSRealTimeException.php',
         'Aws\\IVSRealTime\\IVSRealTimeClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/IVSRealTime/IVSRealTimeClient.php',
         'Aws\\IVS\\Exception\\IVSException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/IVS/Exception/IVSException.php',
@@ -1502,6 +1501,8 @@ class ComposerStaticInit8004bc802f8f8ef7ebe9ac5dbe773b83
         'Aws\\MachineLearning\\MachineLearningClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/MachineLearning/MachineLearningClient.php',
         'Aws\\Macie2\\Exception\\Macie2Exception' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Macie2/Exception/Macie2Exception.php',
         'Aws\\Macie2\\Macie2Client' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Macie2/Macie2Client.php',
+        'Aws\\MailManager\\Exception\\MailManagerException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/MailManager/Exception/MailManagerException.php',
+        'Aws\\MailManager\\MailManagerClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/MailManager/MailManagerClient.php',
         'Aws\\MainframeModernization\\Exception\\MainframeModernizationException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/MainframeModernization/Exception/MainframeModernizationException.php',
         'Aws\\MainframeModernization\\MainframeModernizationClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/MainframeModernization/MainframeModernizationClient.php',
         'Aws\\ManagedBlockchainQuery\\Exception\\ManagedBlockchainQueryException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/ManagedBlockchainQuery/Exception/ManagedBlockchainQueryException.php',
@@ -1693,6 +1694,8 @@ class ComposerStaticInit8004bc802f8f8ef7ebe9ac5dbe773b83
         'Aws\\RolesAnywhere\\RolesAnywhereClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/RolesAnywhere/RolesAnywhereClient.php',
         'Aws\\Route53Domains\\Exception\\Route53DomainsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Route53Domains/Exception/Route53DomainsException.php',
         'Aws\\Route53Domains\\Route53DomainsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Route53Domains/Route53DomainsClient.php',
+        'Aws\\Route53Profiles\\Exception\\Route53ProfilesException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Route53Profiles/Exception/Route53ProfilesException.php',
+        'Aws\\Route53Profiles\\Route53ProfilesClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Route53Profiles/Route53ProfilesClient.php',
         'Aws\\Route53RecoveryCluster\\Exception\\Route53RecoveryClusterException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Route53RecoveryCluster/Exception/Route53RecoveryClusterException.php',
         'Aws\\Route53RecoveryCluster\\Route53RecoveryClusterClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Route53RecoveryCluster/Route53RecoveryClusterClient.php',
         'Aws\\Route53RecoveryControlConfig\\Exception\\Route53RecoveryControlConfigException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Route53RecoveryControlConfig/Exception/Route53RecoveryControlConfigException.php',
@@ -1851,6 +1854,8 @@ class ComposerStaticInit8004bc802f8f8ef7ebe9ac5dbe773b83
         'Aws\\Swf\\SwfClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Swf/SwfClient.php',
         'Aws\\Synthetics\\Exception\\SyntheticsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Synthetics/Exception/SyntheticsException.php',
         'Aws\\Synthetics\\SyntheticsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Synthetics/SyntheticsClient.php',
+        'Aws\\TaxSettings\\Exception\\TaxSettingsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/TaxSettings/Exception/TaxSettingsException.php',
+        'Aws\\TaxSettings\\TaxSettingsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/TaxSettings/TaxSettingsClient.php',
         'Aws\\Textract\\Exception\\TextractException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Textract/Exception/TextractException.php',
         'Aws\\Textract\\TextractClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Textract/TextractClient.php',
         'Aws\\TimestreamInfluxDB\\Exception\\TimestreamInfluxDBException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/TimestreamInfluxDB/Exception/TimestreamInfluxDBException.php',
@@ -4486,6 +4491,7 @@ class ComposerStaticInit8004bc802f8f8ef7ebe9ac5dbe773b83
         'Inertia\\Ssr\\HttpGateway' => __DIR__ . '/..' . '/inertiajs/inertia-laravel/src/Ssr/HttpGateway.php',
         'Inertia\\Ssr\\Response' => __DIR__ . '/..' . '/inertiajs/inertia-laravel/src/Ssr/Response.php',
         'Inertia\\Ssr\\SsrException' => __DIR__ . '/..' . '/inertiajs/inertia-laravel/src/Ssr/SsrException.php',
+        'Inertia\\Support\\Header' => __DIR__ . '/..' . '/inertiajs/inertia-laravel/src/Support/Header.php',
         'Inertia\\Testing\\AssertableInertia' => __DIR__ . '/..' . '/inertiajs/inertia-laravel/src/Testing/AssertableInertia.php',
         'Inertia\\Testing\\Concerns\\Debugging' => __DIR__ . '/..' . '/inertiajs/inertia-laravel/src/Testing/Concerns/Debugging.php',
         'Inertia\\Testing\\Concerns\\Has' => __DIR__ . '/..' . '/inertiajs/inertia-laravel/src/Testing/Concerns/Has.php',
@@ -6811,8 +6817,11 @@ class ComposerStaticInit8004bc802f8f8ef7ebe9ac5dbe773b83
         'Spatie\\Backtrace\\Arguments\\Reducers\\StringableArgumentReducer' => __DIR__ . '/..' . '/spatie/backtrace/src/Arguments/Reducers/StringableArgumentReducer.php',
         'Spatie\\Backtrace\\Arguments\\Reducers\\SymphonyRequestArgumentReducer' => __DIR__ . '/..' . '/spatie/backtrace/src/Arguments/Reducers/SymphonyRequestArgumentReducer.php',
         'Spatie\\Backtrace\\Backtrace' => __DIR__ . '/..' . '/spatie/backtrace/src/Backtrace.php',
-        'Spatie\\Backtrace\\CodeSnippet' => __DIR__ . '/..' . '/spatie/backtrace/src/CodeSnippet.php',
-        'Spatie\\Backtrace\\File' => __DIR__ . '/..' . '/spatie/backtrace/src/File.php',
+        'Spatie\\Backtrace\\CodeSnippets\\CodeSnippet' => __DIR__ . '/..' . '/spatie/backtrace/src/CodeSnippets/CodeSnippet.php',
+        'Spatie\\Backtrace\\CodeSnippets\\FileSnippetProvider' => __DIR__ . '/..' . '/spatie/backtrace/src/CodeSnippets/FileSnippetProvider.php',
+        'Spatie\\Backtrace\\CodeSnippets\\LaravelSerializableClosureSnippetProvider' => __DIR__ . '/..' . '/spatie/backtrace/src/CodeSnippets/LaravelSerializableClosureSnippetProvider.php',
+        'Spatie\\Backtrace\\CodeSnippets\\NullSnippetProvider' => __DIR__ . '/..' . '/spatie/backtrace/src/CodeSnippets/NullSnippetProvider.php',
+        'Spatie\\Backtrace\\CodeSnippets\\SnippetProvider' => __DIR__ . '/..' . '/spatie/backtrace/src/CodeSnippets/SnippetProvider.php',
         'Spatie\\Backtrace\\Frame' => __DIR__ . '/..' . '/spatie/backtrace/src/Frame.php',
         'Spatie\\FlareClient\\Api' => __DIR__ . '/..' . '/spatie/flare-client-php/src/Api.php',
         'Spatie\\FlareClient\\Concerns\\HasContext' => __DIR__ . '/..' . '/spatie/flare-client-php/src/Concerns/HasContext.php',
@@ -8176,7 +8185,9 @@ class ComposerStaticInit8004bc802f8f8ef7ebe9ac5dbe773b83
         'Symfony\\Contracts\\Service\\Attribute\\Required' => __DIR__ . '/..' . '/symfony/service-contracts/Attribute/Required.php',
         'Symfony\\Contracts\\Service\\Attribute\\SubscribedService' => __DIR__ . '/..' . '/symfony/service-contracts/Attribute/SubscribedService.php',
         'Symfony\\Contracts\\Service\\ResetInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ResetInterface.php',
+        'Symfony\\Contracts\\Service\\ServiceCollectionInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceCollectionInterface.php',
         'Symfony\\Contracts\\Service\\ServiceLocatorTrait' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceLocatorTrait.php',
+        'Symfony\\Contracts\\Service\\ServiceMethodsSubscriberTrait' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceMethodsSubscriberTrait.php',
         'Symfony\\Contracts\\Service\\ServiceProviderInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceProviderInterface.php',
         'Symfony\\Contracts\\Service\\ServiceSubscriberInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceSubscriberInterface.php',
         'Symfony\\Contracts\\Service\\ServiceSubscriberTrait' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceSubscriberTrait.php',
@@ -8304,10 +8315,10 @@ class ComposerStaticInit8004bc802f8f8ef7ebe9ac5dbe773b83
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit8004bc802f8f8ef7ebe9ac5dbe773b83::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit8004bc802f8f8ef7ebe9ac5dbe773b83::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit8004bc802f8f8ef7ebe9ac5dbe773b83::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit8004bc802f8f8ef7ebe9ac5dbe773b83::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit57881ae0cdacb360e44edd3dc915154f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit57881ae0cdacb360e44edd3dc915154f::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit57881ae0cdacb360e44edd3dc915154f::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit57881ae0cdacb360e44edd3dc915154f::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -8,6 +8,9 @@ import VideosLoop from "./Videos/Partials/VideosLoop";
 import { useEffect } from "react";
 import { Inertia } from "@inertiajs/inertia";
 import { BiUserPlus } from "react-icons/bi";
+// import PopularMovies from "@/Components/New/PopularMovies";
+import Playlist from "@/Components/New/Playlist";
+import Video from "@/Components/New/Video";
 
 export default function Homepage({
     channels,
@@ -35,14 +38,14 @@ export default function Homepage({
     }, []);
 
     return (
-        <Front containerClass="w-full" headerShow={true}>
+        <Front containerClass="w-full" headerShow={true} style={{ background: '#000' }}>
             <Head>
                 <title>{meta_title}</title>
                 <meta name="description" content={meta_description} />
                 <meta name="keywords" content={meta_keys} />
             </Head>
 
-            {livenow.length > 0 && (
+            {/* {livenow.length > 0 && (
                 <div className="mb-20">
                     <div
                         className={`flex justify-center items-center mt-20 mb-8`}
@@ -55,23 +58,30 @@ export default function Homepage({
 
                     <ChannelsLoop channels={livenow} />
                 </div>
+            )} */}
+            {/* channels code */}
+            {!channels?.length && (
+                <div className="text-center text-xl font-medium dark:text-white text-white">No channels to show
+                </div>
             )}
-
-            <div className={`flex justify-center items-center mt-10 mb-8`}>
+            {channels?.length && <Playlist channels={channels} />}
+            {/* channels code */}
+            {/* Videos code */}
+            {!videos?.length && (
+                <div className="text-center text-xl font-medium dark:text-white text-white">No videos to show
+                </div>
+            )}
+            {videos?.length && <Video videos={videos} />}
+            {/* channels code */}
+            {/* <div className={`flex justify-center items-center mt-10 mb-8`}>
                 <MdOutlinePeople className="text-pink-600 text-4xl mr-1" />
                 <h2 className="text-indigo-900 text-center dark:text-zinc-200 text-4xl font-semibold">
                     {__("Discover Channels")}
                 </h2>
-            </div>
+            </div> */}
+            {/* <ChannelsLoop channels={channels} /> */}
 
-            {channels.length < 1 && (
-                <div className="text-center text-xl font-medium dark:text-white text-gray-700">
-                    {__("No channels to show")}
-                </div>
-            )}
-            <ChannelsLoop channels={channels} />
-
-            {channels.length > 0 && (
+            {/* {channels.length > 0 && (
                 <div className="mx-auto text-center mt-10">
                     <Link
                         href={route("channels.browse")}
@@ -80,9 +90,9 @@ export default function Homepage({
                         {__("View All Channels")}
                     </Link>
                 </div>
-            )}
+            )} */}
 
-            <div className={`flex justify-center items-center mt-20 mb-8`}>
+            {/* <div className={`flex justify-center items-center mt-20 mb-8`}>
                 <MdVideoLibrary className="text-pink-600 text-4xl mr-1" />
                 <h2 className="text-indigo-900 text-center dark:text-zinc-200 text-4xl font-semibold">
                     {__("Latest Videos")}
@@ -107,9 +117,9 @@ export default function Homepage({
                         {__("View All Videos")}
                     </Link>
                 </div>
-            )}
+            )} */}
 
-            <div className="mt-20 flex items-center flex-col lg:flex-row flex-wrap border-t px-5 dark:border-zinc-800">
+            {/* <div className="mt-20 flex items-center flex-col lg:flex-row flex-wrap border-t px-5 dark:border-zinc-800">
                 <div
                     className={`flex flex-col justify-center items-center mb-8`}
                 >
@@ -161,7 +171,7 @@ export default function Homepage({
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </Front>
     );
 }

@@ -28,6 +28,8 @@ use App\Models\Withdrawal;
 use App\Models\VideoSales;
 use App\Models\PrivateStream;
 use App\Models\Commission;
+use App\Models\SubscriptionPlan;
+use App\Models\SubscriptionPlanSell;
 
 use App\Notifications\PaymentRequestProcessed;
 use App\Notifications\StreamerVerifiedNotification;
@@ -350,6 +352,105 @@ class Admin extends Controller
 
         return redirect('admin/token-sales')->with('msg', __(":tokensCount tokens were added to :username balance", ["tokensCount" => $request->addTokens, "username" => $user->username]));
     }
+
+
+   //   subscription Plans
+   public function subscriptionPlans(Request $r)
+   {   
+       if ($r->filled('remove')) {
+           if (env('IS_LIVE_DEMO', false) === true) {
+               return back()->with('msg', 'No changes will be applied on this live demo.');
+           }
+           SubscriptionPlan::findOrFail($r->remove)->delete();
+           return back()->with('msg', __('subscription Plan removed.'));
+       }
+        $active = 'token-sales';
+        $packs = SubscriptionPlan::orderBy('id')->get();
+       return view('admin.subscription-plans', compact('packs', 'active'));
+   }
+
+    public function createSubscriptionPlan(){
+        return view('admin.create-subscription-plan');
+    }
+
+    public function addSubscriptionPlans(Request $r){
+        if (env('IS_LIVE_DEMO', false) === true) {
+            return back()->with('msg', 'No changes will be applied on this live demo.');
+        }
+
+       $r->validate([
+            'subscription_name' => 'required',
+            'subscription_price' => 'required|min:1'
+        ]);
+
+        SubscriptionPlan::create($r->only(['subscription_name', 'subscription_price']));
+        return redirect('admin/subscription-plans')->with('msg', __('Subscription Plan was successfully created.'));
+    }
+
+    public function editSubscriptionPlan(SubscriptionPlan $tokenPack)
+    {
+        return view('admin.edit-subscription-plan', compact('tokenPack'));
+    }
+
+    public function updateSubscriptionPlans(SubscriptionPlan $tokenPack, Request $r)
+    {
+        if (env('IS_LIVE_DEMO', false) === true) {
+            return back()->with('msg', 'No changes will be applied on this live demo.');
+        }
+
+        $r->validate([
+            'subscription_name' => 'required',
+             'subscription_price' => 'required|min:1'
+        ]);
+
+        $tokenPack->update($r->only(['subscription_name', 'subscription_price']));
+
+        return redirect('admin/subscription-plans')->with('msg', __('Subscription Plans was successfully updated.'));
+    }
+
+    // subscription Plan sell
+    public function subscriptionSales()
+    {
+        $active = 'token-sales';
+        $sales =   SubscriptionPlanSell::where('status', 'paid')->orderByDesc('id')->get();
+        $sales = SubscriptionPlanSell::where('subscription_plan_sells.status', 'active')
+            ->join('users', 'users.id', '=', 'subscription_plan_sells.user_id')
+           ->orderByDesc('subscription_plan_sells.id')
+          ->select('subscription_plan_sells.*', 'users.*') // Specify the columns you want to select
+         ->get();
+        return view('admin.subscription-sales', compact('sales', 'active'));
+    }
+
+      public function addSubscriptionSale(Request $request) {
+        // $request->validate(['user' => 'required|exists:users,id', 'packId' => 'required|exists:token_packs,id']);
+        // $user = User::find($request->user);
+        // $pack = SubscriptionPlan::find($request->packId);
+        // $active = 'token-sales';
+        // return view('admin.add-subscription-sale', compact('active', 'user', 'pack'));
+    }
+
+    public function saveSubscriptionSale(User $user, Request $request)
+    {
+        // if (env('IS_LIVE_DEMO', false) === true) {
+        //     return back()->with('msg', 'No changes will be applied on this live demo.');
+        // }
+
+        // $request->validate(['addTokens' => 'required|numeric|min:1', 'amount' => 'required|numeric']);
+        
+        // $user->increment('tokens', $request->addTokens);
+
+        // SubscriptionPlanSell::create([
+        //     'user_id' => $user->id,
+        //     'tokens' => $request->addTokens,
+        //     'amount' => $request->amount,
+        //     'gateway' => 'Bank Transfer',
+        //     'status' => 'paid'
+        // ]);
+
+        // return redirect('admin/token-sales')->with('msg', __(":tokensCount tokens were added to :username balance", ["tokensCount" => $request->addTokens, "username" => $user->username]));
+    }
+
+
 
     // token packs
     public function tokenPacks(Request $r)

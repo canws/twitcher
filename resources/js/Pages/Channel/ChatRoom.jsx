@@ -260,9 +260,9 @@ export default function ChatRoom({ streamer, forceScroll = false }) {
             <div
                 ref={chatScroll}
                 onScroll={(e) => updateScrollPosition(e.currentTarget)}
-                className="flex-grow  text-gray-700 text-sm dark:text-white pl-2  relative overflow-scroll"
+                className="flex-grow text-gray-700 text-sm dark:text-white pl-2  relative overflow-scroll bg-dark border"
             >
-                <h3 className="font-semibold pt-5 text-lg flex items-center justify-center">
+                <h3 className="font-semibold pt-2 text-lg flex items-center justify-center text-white ">
                     <BsChatText className="mr-2" />
                     {__("Live Chat")}
                     {chatTypeData !== 'public' ? <Timer timerData = {timerData} sendDataToParentTimer={receiveDataFromChild}/> : ''}

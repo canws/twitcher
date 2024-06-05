@@ -12,6 +12,7 @@ import SingleVideo from "./SingleVideo";
 import TextInput from "@/Components/TextInput";
 import debounce from "lodash.debounce";
 import { IoMdFunnel } from "react-icons/io";
+import { Button } from "react-bootstrap";
 
 export default function BrowseVideos({
     videos,
@@ -130,13 +131,12 @@ export default function BrowseVideos({
             extraImageHeight={"h-14"}
         >
             <Head
-                title={`${
-                    category !== null
+                title={`${category !== null
                         ? __(":categoryName Videos", {
-                              categoryName: category.category,
-                          })
+                            categoryName: category.category,
+                        })
                         : __("Browse Videos")
-                }`}
+                    }`}
             />
 
             <Modal show={modal} onClose={(e) => setModal(false)}>
@@ -149,12 +149,12 @@ export default function BrowseVideos({
                         ref={filters}
                         className="hidden lg:block w-56 lg:flex-shrink-0 lg:mr-5"
                     >
-                        <h3 className="text-indigo-700 text-xl font-bold block p-3 bg-light-violet dark:bg-zinc-900 dark:text-white shadow rounded-t-lg">
+                        <h3 className="text-xl font-bold block text-white p-3 bg-footer shadow">
                             {__("Search")}
                         </h3>
-                        <div className="bg-white dark:bg-zinc-800 rounded-b-lg shadow p-3">
+                        <div className="bg-footer shadow p-3">
                             <TextInput
-                                className="w-full"
+                                className="w-full rounded-0"
                                 name="search"
                                 value={search}
                                 handleChange={(e) => setSearch(e.target.value)}
@@ -162,11 +162,11 @@ export default function BrowseVideos({
                             />
                         </div>
 
-                        <h3 className="mt-5 text-indigo-700 text-xl font-bold block p-3 bg-light-violet dark:bg-zinc-900 dark:text-white shadow rounded-t-lg">
+                        <h3 className="mt-5 text-xl font-bold block p-3 text-white shadow bg-footer">
                             {__("Sort By")}
                         </h3>
-                        <div className="bg-white dark:bg-zinc-800 rounded-b-lg shadow p-3">
-                            <div className="flex items-center text-gray-600 dark:text-white">
+                        <div className="bg-footer shadow p-3">
+                            <div className="flex items-center text-white">
                                 <input
                                     type={"radio"}
                                     name="sort"
@@ -177,7 +177,7 @@ export default function BrowseVideos({
                                 />
                                 {__("Most Viewed")}
                             </div>
-                            <div className="flex items-center text-gray-600 dark:text-white">
+                            <div className="flex items-center text-white">
                                 <input
                                     type={"radio"}
                                     name="sort"
@@ -188,7 +188,7 @@ export default function BrowseVideos({
                                 />
                                 {__("Recently Uploaded")}
                             </div>
-                            <div className="flex items-center text-gray-600 dark:text-white">
+                            <div className="flex items-center text-white">
                                 <input
                                     type={"radio"}
                                     name="sort"
@@ -199,7 +199,7 @@ export default function BrowseVideos({
                                 />
                                 {__("Older Videos")}
                             </div>
-                            <div className="flex items-center text-gray-600 dark:text-white">
+                            <div className="flex items-center text-white">
                                 <input
                                     type={"radio"}
                                     name="sort"
@@ -210,7 +210,7 @@ export default function BrowseVideos({
                                 />
                                 {__("Highest Price")}
                             </div>
-                            <div className="flex items-center text-gray-600 dark:text-white">
+                            <div className="flex items-center text-white">
                                 <input
                                     type={"radio"}
                                     name="sort"
@@ -223,15 +223,15 @@ export default function BrowseVideos({
                             </div>
                         </div>
 
-                        <h3 className="mt-5 text-indigo-700 text-xl font-bold block p-3 bg-light-violet dark:bg-zinc-900  dark:text-white shadow rounded-t-lg">
+                        <h3 className="mt-5text-xl font-bold block p-3 text-white shadow">
                             {__("Category")}
                         </h3>
-                        <div className="bg-white dark:bg-zinc-800 rounded-b-lg shadow p-3">
+                        <div className="bg-footer shadow p-3">
                             {categories.map((cat) => {
                                 return (
                                     <div
                                         key={`catFilter-${cat.id}`}
-                                        className="flex items-center text-gray-600 dark:text-white"
+                                        className="flex items-center text-white"
                                     >
                                         <input
                                             type="checkbox"
@@ -254,9 +254,9 @@ export default function BrowseVideos({
                                 <Spinner />
                             </div>
                         ) : (
-                            <button className="mt-5 bg-indigo-500 dark:bg-zinc-800 font-semibold text-white rounded-lg px-2 py-1.5 block w-full">
+                            <Button className="me-2 btn text-uppercase position-relative d-flex w-full mt-2 mb-5">
                                 {__("Apply Filters")}
-                            </button>
+                            </Button>
                         )}
 
                         <div className="lg:hidden text-center border-t border-t-gray-300 dark:border-gray-900 py-5">

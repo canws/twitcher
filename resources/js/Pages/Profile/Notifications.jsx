@@ -8,6 +8,7 @@ import { ImFilesEmpty } from "react-icons/im";
 import nl2br from "react-nl2br";
 import { FaPiggyBank } from "react-icons/fa";
 import AccountNavi from "../Channel/Partials/AccountNavi";
+import { Button } from "react-bootstrap";
 
 export default function Edit({ notifications }) {
     const { post, processing } = useForm();
@@ -103,13 +104,12 @@ export default function Edit({ notifications }) {
                         <div className="flex items-center space-x-2">
                             <div className="flex-shrink-0">
                                 <Link
-                                    href={`${
-                                        n.data.isStreamer === "yes"
-                                            ? route("channel", {
-                                                  user: n?.data?.username,
-                                              })
-                                            : ""
-                                    }`}
+                                    href={`${n.data.isStreamer === "yes"
+                                        ? route("channel", {
+                                            user: n?.data?.username,
+                                        })
+                                        : ""
+                                        }`}
                                 >
                                     <img
                                         src={n.data.profilePicture}
@@ -120,13 +120,12 @@ export default function Edit({ notifications }) {
                             </div>
                             <div>
                                 <Link
-                                    href={`${
-                                        n.data.isStreamer === "yes"
-                                            ? route("channel", {
-                                                  user: n?.data?.username,
-                                              })
-                                            : ""
-                                    }`}
+                                    href={`${n.data.isStreamer === "yes"
+                                        ? route("channel", {
+                                            user: n?.data?.username,
+                                        })
+                                        : ""
+                                        }`}
                                     className="text-sky-500"
                                 >
                                     @{n?.data?.username}
@@ -218,13 +217,12 @@ export default function Edit({ notifications }) {
                         <div className="flex items-center space-x-2">
                             <div className="flex-shrink-0">
                                 <Link
-                                    href={`${
-                                        n.data.is_streamer === "yes"
-                                            ? route("channel", {
-                                                  user: n?.data?.username,
-                                              })
-                                            : ""
-                                    }`}
+                                    href={`${n.data.is_streamer === "yes"
+                                        ? route("channel", {
+                                            user: n?.data?.username,
+                                        })
+                                        : ""
+                                        }`}
                                 >
                                     <img
                                         src={n.data.profile_picture}
@@ -235,13 +233,12 @@ export default function Edit({ notifications }) {
                             </div>
                             <div>
                                 <Link
-                                    href={`${
-                                        n.data.is_streamer === "yes"
-                                            ? route("channel", {
-                                                  user: n?.data?.username,
-                                              })
-                                            : ""
-                                    }`}
+                                    href={`${n.data.is_streamer === "yes"
+                                        ? route("channel", {
+                                            user: n?.data?.username,
+                                        })
+                                        : ""
+                                        }`}
                                     className="text-sky-500"
                                 >
                                     @{n?.data?.username}
@@ -275,69 +272,67 @@ export default function Edit({ notifications }) {
                 );
 
                 break;
-                case "App\\Notifications\\NewGallerySale":
-                    return (
-                        <div className="flex flex-wrap justify-between">
-                            <div className="flex items-center space-x-2">
-                                <div className="flex-shrink-0">
-                                    <Link
-                                        href={`${
-                                            n.data.is_streamer === "yes"
-                                                ? route("channel", {
-                                                      user: n?.data?.username,
-                                                  })
-                                                : ""
+            case "App\\Notifications\\NewGallerySale":
+                return (
+                    <div className="flex flex-wrap justify-between">
+                        <div className="flex items-center space-x-2">
+                            <div className="flex-shrink-0">
+                                <Link
+                                    href={`${n.data.is_streamer === "yes"
+                                        ? route("channel", {
+                                            user: n?.data?.username,
+                                        })
+                                        : ""
                                         }`}
-                                    >
-                                        <img
-                                            src={n.data.profile_picture}
-                                            alt=""
-                                            className="rounded-full h-14 w-14 border-zinc-200 dark:border-indigo-200 border"
-                                        />
-                                    </Link>
-                                </div>
-                                <div>
-                                    <Link
-                                        href={`${
-                                            n.data.is_streamer === "yes"
-                                                ? route("channel", {
-                                                      user: n?.data?.username,
-                                                  })
-                                                : ""
-                                        }`}
-                                        className="text-sky-500"
-                                    >
-                                        @{n?.data?.username}
-                                    </Link>
-                                    <br />
-                                    <span className="text-gray-600 dark:text-gray-100">
-                                        {__(
-                                            'just bought your Images ":videoTitle" for :tokensAmount tokens',
-                                            {
-                                                videoTitle: n.data.gallery.title,
-                                                tokensAmount: n.data.price,
-                                            }
-                                        )}
-                                    </span>
-                                </div>
+                                >
+                                    <img
+                                        src={n.data.profile_picture}
+                                        alt=""
+                                        className="rounded-full h-14 w-14 border-zinc-200 dark:border-indigo-200 border"
+                                    />
+                                </Link>
                             </div>
                             <div>
-                                {n.read_at === null ? (
-                                    <button
-                                        onClick={(e) => markAsRead(n)}
-                                        className="inline-flex items-center space-x-3 text-sky-500 hover:text-sky-600"
-                                    >
-                                        <BsCheckAll />
-                                        {__("Mark as Read")}
-                                    </button>
-                                ) : (
-                                    <BsCheckCircleFill />
-                                )}
+                                <Link
+                                    href={`${n.data.is_streamer === "yes"
+                                        ? route("channel", {
+                                            user: n?.data?.username,
+                                        })
+                                        : ""
+                                        }`}
+                                    className="text-sky-500"
+                                >
+                                    @{n?.data?.username}
+                                </Link>
+                                <br />
+                                <span className="text-gray-600 dark:text-gray-100">
+                                    {__(
+                                        'just bought your Images ":videoTitle" for :tokensAmount tokens',
+                                        {
+                                            videoTitle: n.data.gallery.title,
+                                            tokensAmount: n.data.price,
+                                        }
+                                    )}
+                                </span>
                             </div>
                         </div>
-                    );
-    
-                    break;
+                        <div>
+                            {n.read_at === null ? (
+                                <button
+                                    onClick={(e) => markAsRead(n)}
+                                    className="inline-flex items-center space-x-3 text-sky-500 hover:text-sky-600"
+                                >
+                                    <BsCheckAll />
+                                    {__("Mark as Read")}
+                                </button>
+                            ) : (
+                                <BsCheckCircleFill />
+                            )}
+                        </div>
+                    </div>
+                );
+
+                break;
             default:
                 return `NOTIFICATION_TYPE: ${n.type}`;
                 break;
@@ -350,24 +345,31 @@ export default function Edit({ notifications }) {
             <div className="lg:flex lg:space-x-10 w-full">
                 <AccountNavi active={"notifications"} />
 
-                <div className="bg-white rounded-lg w-full shadow dark:bg-zinc-900 p-4 sm:p-8">
+                <div className="bg-footer w-full shadow dark:bg-zinc-900 p-4 sm:p-8">
                     <div className="flex justify-between">
-                        <div className="flex items-center space-x-2 flex-wrap">
-                            <AiOutlineBell className="w-8 h-8 text-gray-600 dark:text-gray-100" />
-                            <h2 className="text-lg md:text-xl font-medium text-gray-600 dark:text-gray-100">
+                        <div className="d-flex align-items-center space-x-2 flex-wrap">
+                            <AiOutlineBell className="w-8 h-8 text-white dark:text-gray-100" />
+                            <h2 className="text-lg md:text-xl font-medium text-white dark:text-gray-100 mb-0">
                                 {__("Notifications")}
                             </h2>
                         </div>
                         <div>
                             {notifications.data.length &&
                                 auth.unreadNotifications > 0 && (
-                                    <button
+                                    // <button
+                                    //     onClick={(e) => markAllRead()}
+                                    //     className="inline-flex items-center space-x-3 border-2 border-sky-500 rounded-lg p-2 font-semibold text-sm text-sky-500 hover:text-sky-600 hover:border-sky-600"
+                                    // >
+                                    //     <BsCheckAll />
+                                    //     {__("Mark All As Read")}
+                                    // </button>
+                                    <Button
                                         onClick={(e) => markAllRead()}
-                                        className="inline-flex items-center space-x-3 border-2 border-sky-500 rounded-lg p-2 font-semibold text-sm text-sky-500 hover:text-sky-600 hover:border-sky-600"
+                                        className="d-flex me-2 btn text-uppercase position-relative align-items-center"
                                     >
-                                        <BsCheckAll />
+                                        <BsCheckAll className="me-2" />
                                         {__("Mark All As Read")}
-                                    </button>
+                                    </Button>
                                 )}
                         </div>
                     </div>
@@ -386,11 +388,10 @@ export default function Edit({ notifications }) {
                     {notifications.data.map((n) => (
                         <div
                             key={n.id}
-                            className={`mt-10 px-4 py-2.5 bg-slate-50 dark:bg-zinc-900 sm:rounded-lg dark:text-white ${
-                                n.read_at
-                                    ? ""
-                                    : "border border-slate-200 dark:border-gray-700"
-                            }`}
+                            className={`mt-10 px-4 py-2.5 bg-dark dark:bg-zinc-900  dark:text-white ${n.read_at
+                                ? ""
+                                : "border border-slate-200 dark:border-gray-700"
+                                }`}
                         >
                             <RenderNotification n={n} />
                         </div>

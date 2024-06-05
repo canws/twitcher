@@ -1,15 +1,15 @@
-import React from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/inertia-react";
-import __ from "@/Functions/Translate";
-import { BsTagFill } from "react-icons/bs";
-import { AiOutlineEye } from "react-icons/ai";
-import { FcUnlock } from "react-icons/fc";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { MdGeneratingTokens } from "react-icons/md";
-import axios from "axios";
-import { FaGrinStars } from "react-icons/fa";
 import { Inertia } from "@inertiajs/inertia";
+import { FcUnlock } from "react-icons/fc";
+import __ from "@/Functions/Translate";
+import React from "react";
+import axios from "axios";
+// import { Head, Link } from "@inertiajs/inertia-react";
+// import { AiOutlineEye } from "react-icons/ai";
+// import { BsTagFill } from "react-icons/bs";
+// import { FaGrinStars } from "react-icons/fa";
 
 const VideoComponent = ({ video, inModal }) => {
     const increaseViews = () => {
@@ -17,8 +17,8 @@ const VideoComponent = ({ video, inModal }) => {
     };
 
     return (
-        <div className={`justify-center w-full ${inModal ? "p-3" : "p-0"}`}>
-            <div className="flex items-start">
+        <div className={`justify-center w-full rounded-0 ${inModal ? "p-0" : "p-0"}`}>
+            {/* <div className="flex items-start">
                 <div className="mr-5 flex flex-col items-center flex-shrink-0">
                     <Link
                         href={route("channel", {
@@ -74,9 +74,9 @@ const VideoComponent = ({ video, inModal }) => {
                         )}
                     </div>
                 </div>
-            </div>
+            </div> */}
 
-            <div className="mt-5">
+            <div>
                 {video.canBePlayed ? (
                     <video
                         className="w-full aspect-video"
@@ -137,7 +137,7 @@ export default function SingleVideo({ video, inModal = false }) {
     } else {
         return (
             <AuthenticatedLayout>
-                <Head title={video.title} />
+                {/* <Head title={video.title} /> */}
                 <VideoComponent video={video} inModal={false} />
             </AuthenticatedLayout>
         );

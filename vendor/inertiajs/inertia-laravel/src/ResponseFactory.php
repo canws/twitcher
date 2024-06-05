@@ -10,6 +10,7 @@ use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response as BaseResponse;
+use Inertia\Support\Header;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse as SymfonyRedirect;
 
@@ -22,6 +23,9 @@ class ResponseFactory
 
     /** @var array */
     protected $sharedProps = [];
+
+    /** @var array */
+    protected $persisted = [];
 
     /** @var Closure|string|null */
     protected $version;
@@ -66,6 +70,30 @@ class ResponseFactory
     }
 
     /**
+     * @param string|array|Arrayable $props
+     */
+    public function persist($props): void
+    {
+        if (is_array($props)) {
+            $this->persisted = array_merge($this->persisted, $props);
+        } elseif ($props instanceof Arrayable) {
+            $this->persisted = array_merge($this->persisted, $props->toArray());
+        } else {
+            $this->persisted[] = $props;
+        }
+    }
+
+    public function getPersisted(): array
+    {
+        return $this->persisted;
+    }
+
+    public function flushPersisted(): void
+    {
+        $this->persisted = [];
+    }
+
+    /**
      * @param Closure|string|null $version
      */
     public function version($version): void
@@ -100,7 +128,8 @@ class ResponseFactory
             $component,
             array_merge($this->sharedProps, $props),
             $this->rootView,
-            $this->getVersion()
+            $this->getVersion(),
+            $this->persisted
         );
     }
 
@@ -110,7 +139,7 @@ class ResponseFactory
     public function location($url): SymfonyResponse
     {
         if (Request::inertia()) {
-            return BaseResponse::make('', 409, ['X-Inertia-Location' => $url instanceof SymfonyRedirect ? $url->getTargetUrl() : $url]);
+            return BaseResponse::make('', 409, [Header::LOCATION => $url instanceof SymfonyRedirect ? $url->getTargetUrl() : $url]);
         }
 
         return $url instanceof SymfonyRedirect ? $url : Redirect::away($url);

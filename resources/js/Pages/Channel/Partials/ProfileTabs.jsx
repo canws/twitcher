@@ -1,8 +1,8 @@
 import __ from "@/Functions/Translate";
 import sanitizeHtml from "sanitize-html-react";
-import Tiers from "./TiersTab";
+import Tiers from "./TiersTab_old";
 import ScheduleTab from "./ScheduleTab";
-import ChannelVideos from "./ChannelVideos";
+import ChannelVideos from "./ChannelVideos_old";
 import { FaGrinStars, FaHandSparkles } from "react-icons/fa";
 import { MdVideoLibrary } from "react-icons/md";
 import { usePage } from "@inertiajs/inertia-react";
@@ -111,8 +111,8 @@ export default function ProfileTabs({ streamUser, activeTab, setActiveTab }) {
                                     {streamUser.followers_count === 1
                                         ? __("1 Followers")
                                         : __(":count Followers", {
-                                              count: streamUser.followers_count,
-                                          })}
+                                            count: streamUser.followers_count,
+                                        })}
                                 </p>
                             </div>
                             <div className="shadow bg-white dark:bg-zinc-900 rounded-lg p-5 mb-5 w-full">
@@ -124,8 +124,8 @@ export default function ProfileTabs({ streamUser, activeTab, setActiveTab }) {
                                     {streamUser.subscribers_count === 1
                                         ? __("1 Subscriber")
                                         : __(":count Subscribers", {
-                                              count: streamUser.subscribers_count,
-                                          })}
+                                            count: streamUser.subscribers_count,
+                                        })}
                                 </p>
                             </div>
                             <div className="shadow bg-white dark:bg-zinc-900 rounded-lg p-5 w-full">
@@ -136,8 +136,8 @@ export default function ProfileTabs({ streamUser, activeTab, setActiveTab }) {
                                     {streamUser.videos_count === 1
                                         ? __("1 Video")
                                         : __(":count Videos", {
-                                              count: streamUser.videos_count,
-                                          })}
+                                            count: streamUser.videos_count,
+                                        })}
                                 </p>
                             </div>
                         </div>

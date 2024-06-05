@@ -15,8 +15,8 @@ export default function LiveStream({ isChannelOwner, streamUser, roomName }) {
     streamUser.live_status === "online" ? false : true
   );
   // const [showMessage, setShowMessage] = useState(true);
-  const [liveType , setLiveType] = useState('public');
-  const [userId , setUserId] = useState('');
+  const [liveType, setLiveType] = useState('public');
+  const [userId, setUserId] = useState('');
 
   const { auth } = usePage().props;
 
@@ -68,11 +68,11 @@ export default function LiveStream({ isChannelOwner, streamUser, roomName }) {
         setIsRoomOffline(false);
       })
       .listen(".private.livestream.started", (data) => {
-        if(auth.user.id === data?.chat?.user_id || auth.user.id === data?.chat?.streamer_id){
+        if (auth.user.id === data?.chat?.user_id || auth.user.id === data?.chat?.streamer_id) {
           setLiveType(data?.chat?.chat_type);
           setUserId(data?.chat?.user_id);
           setIsRoomOffline(false);
-        }else{
+        } else {
           setLiveType('public');
           setIsRoomOffline(true);
         }
@@ -105,21 +105,21 @@ export default function LiveStream({ isChannelOwner, streamUser, roomName }) {
             />
           ) : (
             <>
-            
+
               {streamUser.username === auth?.user?.username && (
-                <PrivateLiveSream/>
+                <PrivateLiveSream />
               )}
-            {liveType === 'public' ?
-              (<VideoJS options={videoJsOptions} onReady={handlePlayerReady} />)
-              :
-              (<>
-                    {streamUser.username === auth?.user?.username || auth?.user?.id === userId ? 
-                      (<VideoJS options={videoJsOptions} onReady={handlePlayerReady} />)
-                      :
-                      (<><h1>This Sreaming is private !</h1></>)
-                    }
-              </>)
-            }
+              {liveType === 'public' ?
+                (<VideoJS options={videoJsOptions} onReady={handlePlayerReady} />)
+                :
+                (<>
+                  {streamUser.username === auth?.user?.username || auth?.user?.id === userId ?
+                    (<VideoJS options={videoJsOptions} onReady={handlePlayerReady} />)
+                    :
+                    (<><h1>This Sreaming is private !</h1></>)
+                  }
+                </>)
+              }
             </>
           )}
         </div>

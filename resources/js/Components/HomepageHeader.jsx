@@ -1,9 +1,11 @@
 import __ from "@/Functions/Translate";
+import OttHeroSlider from "./slider/OttHeroSlider";
 
 export default function HomepageHeader() {
     return (
         <>
-            <div className="homepage-header-bg dark:bg-none">
+        <OttHeroSlider/>
+            {/* <div className="homepage-header-bg dark:bg-none">
                 <div className="max-w-7xl mx-auto pt-10 lg:flex items-center justify-between">
                     <div className="w-full homepage-text-container px-4 lg:w-96">
                         <h1 className="font-extrabold text-5xl lg:text-6xl heading-gradient px-4">
@@ -48,10 +50,10 @@ export default function HomepageHeader() {
                                     )}
                                 </h4>
                             </div>
-                        </div>
+                        </div> */}
                         {/* ./lg:flex (zero commissions )*/}
                         {/*no-commissions*/}
-                        <div className="lg:flex md:w-1/2 items-center py-10 px-5">
+                        {/* <div className="lg:flex md:w-1/2 items-center py-10 px-5">
                             <div className="mr-5 w-48 flex-shrink-0">
                                 <img
                                     src="/images/chat-service.png"
@@ -69,9 +71,9 @@ export default function HomepageHeader() {
                                     )}
                                 </h4>
                             </div>
-                        </div>
+                        </div> */}
                         {/* ./lg-flex (donations) */}
-                        <div className="lg:flex md:w-1/2 items-center py-10 px-5">
+                        {/* <div className="lg:flex md:w-1/2 items-center py-10 px-5">
                             <div className="mr-5 md:w-48 flex-shrink-0 w-40">
                                 <img
                                     src="/images/sub-service.png"
@@ -89,9 +91,9 @@ export default function HomepageHeader() {
                                     )}
                                 </h4>
                             </div>
-                        </div>
+                        </div> */}
                         {/* ./lg:flex => memberships*/}
-                        <div className="lg:flex md:w-1/2 items-center py-10 px-5">
+                        {/* <div className="lg:flex md:w-1/2 items-center py-10 px-5">
                             <div className="mr-5 w-48 flex-shrink-0">
                                 <img
                                     src="/images/tips-service.png"
@@ -109,12 +111,12 @@ export default function HomepageHeader() {
                                     )}
                                 </h4>
                             </div>
-                        </div>
+                        </div> */}
                         {/* ./lg:flex => sell-products */}
-                    </div>
+                    {/* </div> */}
                     {/* second row of info icons */}
-                </div>
-            </div>
+                {/* </div>
+            </div> */}
         </>
     );
 }

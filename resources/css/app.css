@@ -8,9 +8,11 @@ html {
         "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
         "Segoe UI Symbol", "Noto Color Emoji";
 }
+
 .text-dark-purple {
     color: #474161;
 }
+
 .homepage-header-bg {
     position: relative;
     margin: 50px 0 0 0;
@@ -20,24 +22,30 @@ html {
     background-size: cover;
     height: 800px;
 }
+
 .no-bg-image {
     background-image: none;
     border: 3px solid red;
 }
+
 .homepage-text-container {
     padding: 20px 0 20px 0;
 }
+
 .bg-light-violet {
     background-color: #e7eaff;
 }
+
 .border-light-violet {
     border-color: #e0e3fc;
 }
+
 .heading-gradient {
     background: -webkit-linear-gradient(95deg, #4338ca 15%, #312e81 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
 .coverPic {
     position: relative;
     margin: 0 auto;
@@ -49,15 +57,55 @@ html {
     background-position: center center;
     background-size: cover;
 }
+
 .static-page p {
     padding: 10px 0 10px 0;
 }
+
 .static-page h1 {
     font-size: 150%;
 }
+
 .static-page h2 {
     font-size: 140%;
 }
+
 .static-page h3 {
     font-size: 130%;
+}
+
+.form-control {
+    border-color: transparent !important;
+    background-color: #141314 !important;
+}
+
+.form-control:focus {
+    color: #fff !important;
+}
+
+header .dropdown-user .iq-sub-card h6 {
+    color: #fff;
+}
+
+header .user-icons {
+    background-color: #000 !important;
+    color: #fff !important
+}
+
+header .dropdown-user .iq-sub-card.iq-logout-2 {
+    background-color: #141314 !important;
+}
+
+.bg-footer {
+    background-color: #141314 !important;
+}
+
+[type='checkbox']:focus,
+[type='radio']:focus{
+    box-shadow: none;
+}
+
+[type='checkbox'],
+[type='radio'] {
+    color: #e50914;
 }
