@@ -108,6 +108,18 @@ class ChannelController extends Controller
             $isChannelOwner = true;
         }
 
+        // if authenticated user != streamuser, show view stream
+        $isChannelLive = false;
+
+        if (auth()->check() && $streamUser->username !== $user->username) {
+            if($streamUser->live_status == true)
+            {
+                $isChannelLive = true;
+            } else {
+                $isChannelLive = false;
+            }
+        }
+
         // check if it follows channel
         $userFollowsChannel = false;
         if (auth()->check() && auth()->user()->isFollowing($streamUser)) {

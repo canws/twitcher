@@ -83,7 +83,7 @@ export default function StartStream({
                                 </div>
                             </div>
                             <div className="iq-button d-flex">
-                                {auth?.user?.username === streamUser?.username && (
+                                {auth?.user?.username === streamUser?.username ? (
                                     <Link
                                         href={route("channel.livestream", {
                                             user: streamUser?.username,
@@ -93,6 +93,20 @@ export default function StartStream({
                                         <AiFillPlayCircle className="mr-1" />
                                         {__("Start Streaming")}
                                     </Link>
+                                ) : (
+                                    <>
+                                        {streamUser?.live_status === 'online' ? (
+                                            <Link
+                                                href={route("channel.livestream", {
+                                                    user: streamUser?.username,
+                                                })}
+                                                className="me-2 btn text-uppercase position-relative d-flex"
+                                            >
+                                                <AiFillPlayCircle className="mr-1" />
+                                                {__("View Streaming")}
+                                            </Link>
+                                        ) : null}
+                                    </>
                                 )}
                                 <Button
                                     className="me-2 btn text-uppercase position-relative d-flex"
@@ -106,6 +120,7 @@ export default function StartStream({
                                     userIsSubscribed={userIsSubscribed}
                                 />
                             </div>
+
                         </div>
                     </Container>
                 </div>
